@@ -1,0 +1,1507 @@
+---------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  E:\Holly\Job Search\LMParticipation_PublicFiles\Log Output\SECTION 3 - Data Assessment
+> s.log
+  log type:  text
+ opened on:  12 Jun 2025, 10:12:27
+
+. 
+. use "E:\Holly\Job Search\LMParticipation_PublicFiles\DataPull_PSID\Cleaned\FinalData_Cleaned.dta"
+> , clear
+
+. 
+. keep  TAS TAS5 TAS7 TAS9 TAS11 TAS13 TAS15 Sex Race WorryJob5 WorryJob7 WorryJob9 ///
+>         WorryJob11 WorryJob13 WorryJob15 ArrestEver5 ArrestEver7 ArrestEver9 ///
+>         ArrestEver11 ArrestEver13 ArrestEver15 ProbationEver5 ProbationEver7 ///
+>         ProbationEver9 ProbationEver11 ProbationEver13 ProbationEver15 JailEver5 ///
+>         JailEver7 JailEver9 JailEver11 JailEver13 JailEver15 OffLastArrest15 ///
+>         OffLastProbation5 OffLastJail5 OffLastArrest7 OffLastProbation7 OffLastJail7 ///
+>         OffLastArrest9 OffLastProbation9 OffLastJail9 OffLastArrest13 OffLastProbation11 ///
+>         OffLastJail11 OffLastArrest5 OffLastProbation13 OffLastJail13 OffLastArrest11 ///
+>         OffLastProbation15 OffLastJail15 AgeLastArrest5 AgeLastProbation5 AgeLastJail5 ///
+>         AgeLastArrest7 AgeLastProbation7 AgeLastJail7 AgeLastArrest9 AgeLastProbation9 ///
+>         AgeLastJail9 AgeLastArrest11 AgeLastProbation11 AgeLastJail11 AgeLastArrest13 ///
+>         AgeLastProbation13 AgeLastJail13 AgeLastArrest15 AgeLastProbation15 AgeLastJail15 ///
+>         GraduatedHS5 GraduatedHS7 GraduatedHS9 GraduatedHS11 GraduatedHS13 GraduatedHS15 ///
+>         EnrollNow5 EnrollNow7 EnrollNow9 EnrollNow11 EnrollNow13 EnrollNow15 ///
+>         RelationshipStatus5 RelationshipStatus7 RelationshipStatus9 RelationshipStatus11 ///
+>         RelationshipStatus13 RelationshipStatus15 KidsYN5 KidsYN7 KidsYN9 KidsYN11 ///
+>         KidsYN13 KidsYN15 FIN_Scale5 FIN_Scale7 FIN_Scale9 FIN_Scale11 FIN_Scale13 ///
+>         FIN_Scale15 Risky5 Risky7 Risky9 Risky11 Risky13 Risky15 UnemploymentComp5 ///
+>         UnemploymentComp7 UnemploymentComp9 UnemploymentComp11 UnemploymentComp13 ///
+>         UnemploymentComp15 AGE11 AGE13 AGE15 AGE5 AGE7 AGE9 AlcUse11 AlcUse13 AlcUse15 ///
+>         AlcUse5 AlcUse7 AlcUse9 Health11 Health13 Health15 Health5 Health7 Health9 ParticipantID 
+> ///
+>         Discgd_Total11 Discgd_Total13 Discgd_Total15 Discgd_Total5 Discgd_Total7 ///
+>         Discgd_Total9 Employed_Total11 Employed_Total13 Employed_Total15 Employed_Total5 ///
+>         Employed_Total7 Employed_Total9 Searching_Total11 Searching_Total13 Searching_Total15 ///
+>         Searching_Total5 Searching_Total7 Searching_Total9 s_OffLastArrest5 s_OffLastArrest7 ///
+>         s_OffLastArrest11 s_OffLastArrest13 s_OffLastArrest15 s_OffLastProbation5 ///
+>         s_OffLastProbation7 s_OffLastProbation9 s_OffLastProbation11 s_OffLastProbation13 ///
+>         s_OffLastProbation15 s_OffLastJail5 s_OffLastJail7 s_OffLastJail9 ///
+>         s_OffLastJail11 s_OffLastJail13 s_OffLastJail15 s_OffLastArrest9 Benefits11 ///
+>         Benefits13 Benefits15 Benefits7 Benefits9 EarningsLY9 EarningsLY13 EarningsLY11 ///
+>         EarningsLY5 EarningsLY7 EarningsLY15 EarningsBefore9 EarningsBefore13 ///
+>         EarningsBefore11 EarningsBefore7 EarningsBefore15 OCC5 OCC7 OCC9 OCC11 OCC13 ///
+>         OCC15 DIS_Scale5 DIS_Scale7 DIS_Scale9 DIS_Scale11 DIS_Scale13 DIS_Scale15 ///
+>         TransitionEmploy5 TransitionOOLF5 TransitionEmploy7 TransitionOOLF7 ///
+>         TransitionEmploy9 TransitionOOLF9 TransitionEmploy11 TransitionOOLF11 ///
+>         TransitionEmploy13 TransitionOOLF13 TransitionEmploy15 TransitionOOLF15 ///
+>         ForceOut11 ForceOut13 ForceOut15 ForceOut5 ForceOut7 ForceOut9 ///
+>         FUT_Layoff5 FUT_Layoff7 FUT_Layoff9 FUT_Layoff11 FUT_Layoff13 FUT_Layoff15 ///
+>         LikelyPayWell5 LikelyPayWell7 LikelyPayWell9 LikelyPayWell11 LikelyPayWell13 LikelyPayWel
+> l15
+
+. 
+.         
+. ***
+. *ADDITIONAL VARIABLE CLEANING
+. ***
+. 
+. *2008 indicator
+. foreach x in 5 7 9 11 13 15 {
+  2.         gen crash`x' = .
+  3.         replace crash`x' = 1 if `x' > 8
+  4.         replace crash`x' = 0 if `x' < 8
+  5.         }
+(3,563 missing values generated)
+(0 real changes made)
+(3,563 real changes made)
+(3,563 missing values generated)
+(0 real changes made)
+(3,563 real changes made)
+(3,563 missing values generated)
+(3,563 real changes made)
+(0 real changes made)
+(3,563 missing values generated)
+(3,563 real changes made)
+(0 real changes made)
+(3,563 missing values generated)
+(3,563 real changes made)
+(0 real changes made)
+(3,563 missing values generated)
+(3,563 real changes made)
+(0 real changes made)
+
+.         
+. *Marital status
+. label define mar 0"Unmarried, not cohabitating" 1"Married or Cohabitating"
+
+.         // too few values for widowed/divorced/separated for separate category
+. foreach x in 5 7 9 11 13 15 {
+  2.         recode RelationshipStatus`x' 1=0 2/3=1 4=0 
+  3.         label value RelationshipStatus`x' mar   
+  4. }
+(745 changes made to RelationshipStatus5)
+(1115 changes made to RelationshipStatus7)
+(1554 changes made to RelationshipStatus9)
+(1907 changes made to RelationshipStatus11)
+(1802 changes made to RelationshipStatus13)
+(1641 changes made to RelationshipStatus15)
+
+. 
+. *Offense type
+. label define offcat 0"Violent/Serious" 1"Non-Violent/Non-Serious"
+
+. label define soffcat2 0"No offense" 1"Violent/Serious" 2"Non-Violent/Non-Serious"
+
+. foreach x in Arrest Jail Probation {
+  2.         foreach y in 5 7 9 11 13 15 {
+  3.                 clonevar Srs`x'`y' = OffLast`x'`y' // among those with record
+  4.                         recode Srs`x'`y' 1/2=0 3/7=1
+  5.                         label value Srs`x'`y' offcat
+  6.                 clonevar s_Srs`x'`y' = s_OffLast`x'`y' // all respondents
+  7.                         recode s_Srs`x'`y' 2=1 3/7=2
+  8.                         label value s_Srs`x'`y' soffcat2
+  9.         }
+ 10. }
+(3,287 missing values generated)
+(276 changes made to SrsArrest5)
+(2,818 missing values generated)
+(135 changes made to s_SrsArrest5)
+(3,337 missing values generated)
+(226 changes made to SrsArrest7)
+(2,448 missing values generated)
+(207 changes made to s_SrsArrest7)
+(3,240 missing values generated)
+(323 changes made to SrsArrest9)
+(2,009 missing values generated)
+(274 changes made to s_SrsArrest9)
+(3,066 missing values generated)
+(497 changes made to SrsArrest11)
+(1,656 missing values generated)
+(412 changes made to s_SrsArrest11)
+(3,113 missing values generated)
+(450 changes made to SrsArrest13)
+(1,759 missing values generated)
+(329 changes made to s_SrsArrest13)
+(3,215 missing values generated)
+(348 changes made to SrsArrest15)
+(1,922 missing values generated)
+(251 changes made to s_SrsArrest15)
+(3,526 missing values generated)
+(37 changes made to SrsJail5)
+(2,818 missing values generated)
+(31 changes made to s_SrsJail5)
+(3,467 missing values generated)
+(96 changes made to SrsJail7)
+(2,448 missing values generated)
+(84 changes made to s_SrsJail7)
+(3,453 missing values generated)
+(110 changes made to SrsJail9)
+(2,009 missing values generated)
+(95 changes made to s_SrsJail9)
+(3,419 missing values generated)
+(144 changes made to SrsJail11)
+(1,656 missing values generated)
+(134 changes made to s_SrsJail11)
+(3,453 missing values generated)
+(110 changes made to SrsJail13)
+(1,759 missing values generated)
+(99 changes made to s_SrsJail13)
+(3,453 missing values generated)
+(110 changes made to SrsJail15)
+(1,922 missing values generated)
+(92 changes made to s_SrsJail15)
+(3,515 missing values generated)
+(48 changes made to SrsProbation5)
+(2,818 missing values generated)
+(43 changes made to s_SrsProbation5)
+(3,460 missing values generated)
+(103 changes made to SrsProbation7)
+(2,448 missing values generated)
+(91 changes made to s_SrsProbation7)
+(3,419 missing values generated)
+(144 changes made to SrsProbation9)
+(2,009 missing values generated)
+(123 changes made to s_SrsProbation9)
+(3,374 missing values generated)
+(189 changes made to SrsProbation11)
+(1,656 missing values generated)
+(172 changes made to s_SrsProbation11)
+(3,398 missing values generated)
+(165 changes made to SrsProbation13)
+(1,759 missing values generated)
+(148 changes made to s_SrsProbation13)
+(3,434 missing values generated)
+(129 changes made to SrsProbation15)
+(1,922 missing values generated)
+(107 changes made to s_SrsProbation15)
+
+. 
+. *Earnings
+. foreach x in EarningsLY EarningsBefore {
+  2.         foreach y in 7 9 11 13 15 {
+  3.                 // earnings year before last unavailable for 2005
+.                 clonevar `x'_z`y' = `x'`y'
+  4.                 replace `x'_z`y' = 0 if `x'_z`y' == .n
+  5.                         // .n = no earnings
+.         }
+  6. }
+(2,734 missing values generated)
+(204 real changes made)
+(2,414 missing values generated)
+(314 real changes made)
+(2,353 missing values generated)
+(215 real changes made)
+(2,384 missing values generated)
+(194 real changes made)
+(2,403 missing values generated)
+(279 real changes made)
+(2,931 missing values generated)
+(419 real changes made)
+(2,945 missing values generated)
+(453 real changes made)
+(2,987 missing values generated)
+(636 real changes made)
+(3,040 missing values generated)
+(616 real changes made)
+(3,050 missing values generated)
+(577 real changes made)
+
+.         
+. foreach x in 7 9 11 13 15 {
+  2.         egen WaveEarnings`x' = rowtotal(EarningsLY`x' EarningsBefore`x')
+  3.                 // without zero values
+.         egen WaveEarnings_z`x' = rowtotal(EarningsLY_z`x' EarningsBefore_z`x') 
+  4.                 // with zero values
+. }
+
+. 
+. foreach x in 7 9 11 13 15 {
+  2.         gen EarningsPerMo`x' = (WaveEarnings`x' / Employed_Total`x')
+  3.         gen EarningsPerMo_z`x' = (WaveEarnings_z`x' / Employed_Total`x')
+  4. }
+(2,575 missing values generated)
+(2,575 missing values generated)
+(2,145 missing values generated)
+(2,145 missing values generated)
+(1,867 missing values generated)
+(1,867 missing values generated)
+(1,980 missing values generated)
+(1,980 missing values generated)
+(2,089 missing values generated)
+(2,089 missing values generated)
+
+. 
+. *Occupation
+. foreach x in 5 7 9 11 13 15 {
+  2.         replace OCC`x' = OCC`x' * 10 // aligned with occupation codes
+  3.         replace OCC`x' = .n if OCC`x' == 0
+  4.         replace OCC`x' = .d if OCC`x' == 9990
+  5. }
+(688 real changes made)
+(57 real changes made, 57 to missing)
+(1 real change made, 1 to missing)
+(1,037 real changes made)
+(78 real changes made, 78 to missing)
+(5 real changes made, 5 to missing)
+(1,470 real changes made)
+(84 real changes made, 84 to missing)
+(15 real changes made, 15 to missing)
+(1,778 real changes made)
+(129 real changes made, 129 to missing)
+(31 real changes made, 31 to missing)
+(1,654 real changes made)
+(150 real changes made, 150 to missing)
+(58 real changes made, 58 to missing)
+(1,545 real changes made)
+(96 real changes made, 96 to missing)
+(29 real changes made, 29 to missing)
+
+.         // occupation codes will be merged later
+.         
+. *Any time in state
+. foreach x in 5 7 9 11 13 15 {
+  2.         clonevar AnyEmploy`x' = Employed_Total`x'
+  3.                 recode AnyEmploy`x' 2/24 = 1
+  4.         clonevar AnySearch`x' = Searching_Total`x'
+  5.                 recode AnySearch`x' 2/24 = 1
+  6.         clonevar AnyDiscgd`x' = Discgd_Total`x'
+  7.                 recode AnyDiscgd`x' 2/24 = 1
+  8. }
+(2,818 missing values generated)
+(577 changes made to AnyEmploy5)
+(2,818 missing values generated)
+(214 changes made to AnySearch5)
+(2,818 missing values generated)
+(495 changes made to AnyDiscgd5)
+(2,448 missing values generated)
+(978 changes made to AnyEmploy7)
+(2,448 missing values generated)
+(329 changes made to AnySearch7)
+(2,448 missing values generated)
+(522 changes made to AnyDiscgd7)
+(2,009 missing values generated)
+(1406 changes made to AnyEmploy9)
+(2,009 missing values generated)
+(515 changes made to AnySearch9)
+(2,009 missing values generated)
+(661 changes made to AnyDiscgd9)
+(1,656 missing values generated)
+(1675 changes made to AnyEmploy11)
+(1,656 missing values generated)
+(684 changes made to AnySearch11)
+(1,656 missing values generated)
+(765 changes made to AnyDiscgd11)
+(1,759 missing values generated)
+(1556 changes made to AnyEmploy13)
+(1,759 missing values generated)
+(629 changes made to AnySearch13)
+(1,759 missing values generated)
+(723 changes made to AnyDiscgd13)
+(1,922 missing values generated)
+(1451 changes made to AnyEmploy15)
+(1,922 missing values generated)
+(545 changes made to AnySearch15)
+(1,922 missing values generated)
+(647 changes made to AnyDiscgd15)
+
+.         
+. *Any contact 
+. foreach x in AnyContact ArrestEver_All JailEver_All ProbationEver_All {
+  2.         gen `x' = .
+  3. }
+(3,563 missing values generated)
+(3,563 missing values generated)
+(3,563 missing values generated)
+(3,563 missing values generated)
+
+. 
+. foreach x in 5 7 9 11 13 15 {
+  2.         replace AnyContact = 1 if ArrestEver`x' == 1 | JailEver`x' == 1 | ///
+>                 ProbationEver`x' == 1
+  3.         replace ArrestEver_All = 1 if ArrestEver`x' == 1
+  4.         replace JailEver_All = 1 if JailEver`x' == 1
+  5.         replace ProbationEver_All = 1 if JailEver`x' == 1
+  6. }
+(143 real changes made)
+(143 real changes made)
+(41 real changes made)
+(41 real changes made)
+(144 real changes made)
+(144 real changes made)
+(74 real changes made)
+(74 real changes made)
+(159 real changes made)
+(159 real changes made)
+(65 real changes made)
+(65 real changes made)
+(166 real changes made)
+(166 real changes made)
+(77 real changes made)
+(77 real changes made)
+(118 real changes made)
+(117 real changes made)
+(45 real changes made)
+(45 real changes made)
+(100 real changes made)
+(100 real changes made)
+(48 real changes made)
+(48 real changes made)
+
+. 
+. foreach x in ArrestEver_All JailEver_All ProbationEver_All {
+  2.         replace `x' = 0 if `x' != 1 & TAS >= 1 & TAS != .
+  3. }
+(2,064 real changes made)
+(2,543 real changes made)
+(2,543 real changes made)
+
+. 
+. *Transitions
+. foreach x in 5 7 9 11 13 15 {
+  2.         replace TransitionEmploy`x' = .n if AnySearch`x' == 0
+  3.         replace TransitionOOLF`x' = .n if AnySearch`x' == 0
+  4. }
+(429 real changes made, 429 to missing)
+(429 real changes made, 429 to missing)
+(699 real changes made, 699 to missing)
+(699 real changes made, 699 to missing)
+(921 real changes made, 921 to missing)
+(921 real changes made, 921 to missing)
+(1,117 real changes made, 1,117 to missing)
+(1,117 real changes made, 1,117 to missing)
+(1,050 real changes made, 1,050 to missing)
+(1,050 real changes made, 1,050 to missing)
+(987 real changes made, 987 to missing)
+(987 real changes made, 987 to missing)
+
+. 
+. *Log earnings
+. foreach x in 7 9 11 13 15 {
+  2.         gen log_Earnings`x' = ln(EarningsPerMo_z`x' + .0001)
+  3. }
+(2,575 missing values generated)
+(2,145 missing values generated)
+(1,867 missing values generated)
+(1,980 missing values generated)
+(2,089 missing values generated)
+
+. 
+. 
+. /*******************************************************************************
+> *********************************VARIABLES LIST*********************************
+> ********************************************************************************
+> Var Type                        |        Var                      |             Var Explained
+> --------------------+---------------------+-------------------------------------
+> DV                                      | Discgd_Total            | Total months unemployed and n
+> ot searching for work
+> DV                                      | Searching_Total         | Total months searching for wo
+> rk
+> DV (supplement)         | Employed_Total          | Total months employed 
+> --------------------+---------------------+-------------------------------------
+> DV                                      | EarningsPerMo           | Earnings per month among empl
+> oyed respondents
+> DV                                      | Secondary                       | R employed on seconda
+> ry market
+> --------------------+---------------------+-------------------------------------
+> IV                                      | WorryJob                        | Labor market insecuri
+> ty (How often worry that you will not have a good job in the future?)
+> IV (supplement)         | FUT_Layoff              | Labor market insecurity (In the future, how l
+> ikely you to be laid off from job)
+> IV (supplement)         | LikelyPayWell           | Labor market insecurity (In the future, how l
+> ikely you will have a job that pays well?)
+> --------------------+---------------------+---------------------------------------
+> LEVEL 1 COVARIATES (WAVE-LEVEL)
+> --------------------+---------------------+-------------------------------------
+> Covariate                       | GraduatedHS             | R has HS degree or equivalent
+> Covariate                       | EnrollNow                       | Enrolled in college
+> Covariate                       | RelationshipStatus  | R married or cohabitating
+> Covariate                       | KidsYN                          | R has children
+> Covariate                       | UnemploymentComp        | R receives unemployment compensation
+> Covariate                       | Health                          | R self-reported health
+> Covariate                       | AlcUse                          | R uses alcohol
+> Covariate                       | FIN_Scale                       | Financial responsibility (ind
+> ependence) scale 
+> Covariate                       | DIS_Scale                       | Everyday perceived discrimina
+> tion scale
+> Covariate                       | crash                           | Pre/post 2008 Great Recession
+> Covariate                       | ForceOut                        | R was forced out of work
+> Covariate                       | Risky                           | Risky behavior scale
+> Covariate                       | AGE                             | R ages
+> --------------------+---------------------+-------------------------------------
+> LEVEL 2 COVARIATES (PERSON-LEVEL)
+> --------------------+---------------------+-------------------------------------
+> Covariate                       | Sex                             | Sex of R
+> Covariate                       | Race/ethnicity          | R race/ethnicity
+> --------------------+---------------------+-------------------------------------
+> ADDITIONAL SENSITIVITY MEASURES (SUPPLEMENTS)
+> --------------------+---------------------+-------------------------------------
+> Covariate (L1)          | SrsArrest                       | Seriousness of last arrest
+> Covariate (L1)          | s_SrsArrest             | Seriousness of last arrest (w/ no offense)
+> Covariate (L1)          | SrsJail                         | Seriousness of last jail stay
+> Covariate (L1)          | s_SrsJail                       | Seriousness of last jail stay (w/ no 
+> offense)
+> Covariate (L1)          | SrsProbation            | Seriousness of last probation
+> Covariate (L1)          | s_SrsProbation          | Seriousness of last probation (w/ no offense)
+> Covariate (L1)          | AgeLastArrest           | Age at last arrest
+> Covariate (L1)          | AgeLastJail             | Age at last jail
+> Covariate (L1)          | AgeLastProbation        | Age at last probation
+> Covariate (L2)          | AgeAdjust                       | Age fixed at baseline
+> --------------------+---------------------+-------------------------------------
+> *******************************************************************************/
+. 
+.         
+. 
+. ***
+. *PERSON-MEAN CENTERING CONTINUOUS LEVEL 1 COVARIATES
+. ***
+.         // grand-mean centered supplements calculated later
+. 
+. foreach x in WorryJob FUT_Layoff LikelyPayWell Health FIN_Scale DIS_Scale Risky AGE {
+  2.         egen pm_`x' = rowmean(`x'5 `x'7 `x'9 `x'11 `x'13 `x'15)
+  3.         } // generating person-mean
+(670 missing values generated)
+(670 missing values generated)
+(673 missing values generated)
+(670 missing values generated)
+(683 missing values generated)
+(670 missing values generated)
+(670 missing values generated)
+(259 missing values generated)
+
+.         
+. foreach x in WorryJob FUT_Layoff LikelyPayWell Health FIN_Scale DIS_Scale Risky AGE {
+  2.         foreach y in 5 7 9 11 13 15 {
+  3.         gen pmc_`x'`y' = `x'`y' - pm_`x'
+  4.         }
+  5.         } // generating person-mean centered values
+(2,818 missing values generated)
+(2,448 missing values generated)
+(2,009 missing values generated)
+(1,656 missing values generated)
+(1,759 missing values generated)
+(1,922 missing values generated)
+(2,820 missing values generated)
+(2,449 missing values generated)
+(2,012 missing values generated)
+(1,657 missing values generated)
+(1,760 missing values generated)
+(1,925 missing values generated)
+(2,897 missing values generated)
+(2,450 missing values generated)
+(2,010 missing values generated)
+(1,656 missing values generated)
+(1,759 missing values generated)
+(1,924 missing values generated)
+(2,820 missing values generated)
+(2,451 missing values generated)
+(2,010 missing values generated)
+(1,660 missing values generated)
+(1,759 missing values generated)
+(1,924 missing values generated)
+(2,841 missing values generated)
+(2,480 missing values generated)
+(2,026 missing values generated)
+(1,680 missing values generated)
+(1,781 missing values generated)
+(1,934 missing values generated)
+(2,818 missing values generated)
+(2,449 missing values generated)
+(2,010 missing values generated)
+(1,656 missing values generated)
+(1,760 missing values generated)
+(1,925 missing values generated)
+(2,818 missing values generated)
+(2,450 missing values generated)
+(2,012 missing values generated)
+(1,656 missing values generated)
+(1,760 missing values generated)
+(1,925 missing values generated)
+(307 missing values generated)
+(393 missing values generated)
+(445 missing values generated)
+(542 missing values generated)
+(619 missing values generated)
+(751 missing values generated)
+
+.         
+. foreach x in 5 7 9 11 13 15 {
+  2.         gen AgeAdjust`x' = AGE5
+  3.         } // fixing age at baseline (supplement)
+(307 missing values generated)
+(307 missing values generated)
+(307 missing values generated)
+(307 missing values generated)
+(307 missing values generated)
+(307 missing values generated)
+
+. 
+. 
+.         
+. ***
+. *CREATING LAGGED MEASURES
+. ***
+. foreach x in 7 9 11 13 15 {
+  2.         local j = `x' - 2
+  3.         *Contact
+.         gen ArrestEver_L1`x' = ArrestEver`j'
+  4.         gen JailEver_L1`x' = JailEver`j'
+  5.         gen ProbationEver_L1`x' = ProbationEver`j'
+  6.         
+.         *Labor market insecurity
+.         gen WorryJob_L1`x' = WorryJob`j'        
+  7.         gen FUT_Layoff_L1`x' = FUT_Layoff`j'    
+  8.         gen LikelyPayWell_L1`x' = LikelyPayWell`j'      
+  9.         
+.         *Covariates
+.         gen GraduatedHS_L1`x' =  GraduatedHS`j'         
+ 10.         gen EnrollNow_L1`x' = EnrollNow`j'      
+ 11.         gen Relationship_L1`x' = RelationshipStatus`j'  
+ 12.         gen Kids_L1`x' = KidsYN`j'      
+ 13.         gen UnemploymentComp_L1`x' = UnemploymentComp`j'        
+ 14.         gen Health_L1`x' = Health`j'    
+ 15.         gen AlcUse_L1`x' = AlcUse`j'    
+ 16.         gen FINScale_L1`x' = FIN_Scale`j'       
+ 17.         gen DISScale_L1`x' = DIS_Scale`j'       
+ 18.         gen Crash_L1`x' = crash`j'      
+ 19.         gen ForceOut_L1`x' = ForceOut`j'        
+ 20.         gen Risky_L1`x' = Risky`j'      
+ 21.         gen AGE_L1`x' = AGE`j'
+ 22.         
+.         *Supplemental covariates
+.         gen SrsArrest_L1`x' = SrsArrest`j'      
+ 23.         gen s_SrsArrest_L1`x' = s_SrsArrest`j'  
+ 24.         gen SrsJail_L1`x' = SrsJail`j'  
+ 25.         gen s_SrsJail_L1`x' = s_SrsJail`j'
+ 26.         gen SrsProbation_L1`x' = SrsProbation`j'
+ 27.         gen s_SrsProbation_L1`x' = s_SrsProbation`j'
+ 28.         gen AgeLastArrest_L1`x' = AgeLastArrest`j'
+ 29.         gen AgeLastJail_L1`x' = AgeLastJail`j'
+ 30.         gen AgeLastProbation_L1`x' = AgeLastProbation`j'
+ 31.         
+.         *Person-mean centered values
+.         gen WorryJob_L1c`x' = pmc_WorryJob`j'
+ 32.         gen FUT_Layoff_L1c`x' = pmc_FUT_Layoff`j'
+ 33.         gen LikelyPayWell_L1c`x' = pmc_LikelyPayWell`j'
+ 34.         gen Health_L1c`x' = pmc_Health`j'
+ 35.         gen FINScale_L1c`x' = pmc_FIN_Scale`j'
+ 36.         gen DISScale_L1c`x' = pmc_DIS_Scale`j'
+ 37.         gen Risky_L1c`x' = pmc_Risky`j'
+ 38.         gen AGE_L1c`x' = pmc_AGE`j'
+ 39.         
+. }
+(2,818 missing values generated)
+(2,818 missing values generated)
+(2,819 missing values generated)
+(2,818 missing values generated)
+(2,820 missing values generated)
+(2,897 missing values generated)
+(2,820 missing values generated)
+(2,827 missing values generated)
+(2,818 missing values generated)
+(2,819 missing values generated)
+(2,818 missing values generated)
+(2,820 missing values generated)
+(2,820 missing values generated)
+(2,841 missing values generated)
+(2,818 missing values generated)
+(2,818 missing values generated)
+(2,818 missing values generated)
+(307 missing values generated)
+(3,287 missing values generated)
+(2,818 missing values generated)
+(3,526 missing values generated)
+(2,818 missing values generated)
+(3,515 missing values generated)
+(2,818 missing values generated)
+(3,420 missing values generated)
+(3,522 missing values generated)
+(3,512 missing values generated)
+(2,818 missing values generated)
+(2,820 missing values generated)
+(2,897 missing values generated)
+(2,820 missing values generated)
+(2,841 missing values generated)
+(2,818 missing values generated)
+(2,818 missing values generated)
+(307 missing values generated)
+(2,450 missing values generated)
+(2,451 missing values generated)
+(2,450 missing values generated)
+(2,448 missing values generated)
+(2,449 missing values generated)
+(2,450 missing values generated)
+(2,448 missing values generated)
+(2,458 missing values generated)
+(2,448 missing values generated)
+(2,448 missing values generated)
+(2,448 missing values generated)
+(2,451 missing values generated)
+(2,452 missing values generated)
+(2,480 missing values generated)
+(2,449 missing values generated)
+(2,448 missing values generated)
+(2,450 missing values generated)
+(393 missing values generated)
+(3,337 missing values generated)
+(2,448 missing values generated)
+(3,467 missing values generated)
+(2,448 missing values generated)
+(3,460 missing values generated)
+(2,448 missing values generated)
+(3,332 missing values generated)
+(3,467 missing values generated)
+(3,453 missing values generated)
+(2,448 missing values generated)
+(2,449 missing values generated)
+(2,450 missing values generated)
+(2,451 missing values generated)
+(2,480 missing values generated)
+(2,449 missing values generated)
+(2,450 missing values generated)
+(393 missing values generated)
+(2,011 missing values generated)
+(2,011 missing values generated)
+(2,012 missing values generated)
+(2,009 missing values generated)
+(2,012 missing values generated)
+(2,010 missing values generated)
+(2,010 missing values generated)
+(2,025 missing values generated)
+(2,009 missing values generated)
+(2,009 missing values generated)
+(2,012 missing values generated)
+(2,010 missing values generated)
+(2,013 missing values generated)
+(2,026 missing values generated)
+(2,010 missing values generated)
+(2,009 missing values generated)
+(2,012 missing values generated)
+(445 missing values generated)
+(3,240 missing values generated)
+(2,009 missing values generated)
+(3,453 missing values generated)
+(2,009 missing values generated)
+(3,419 missing values generated)
+(2,009 missing values generated)
+(3,226 missing values generated)
+(3,448 missing values generated)
+(3,409 missing values generated)
+(2,009 missing values generated)
+(2,012 missing values generated)
+(2,010 missing values generated)
+(2,010 missing values generated)
+(2,026 missing values generated)
+(2,010 missing values generated)
+(2,012 missing values generated)
+(445 missing values generated)
+(1,657 missing values generated)
+(1,658 missing values generated)
+(1,658 missing values generated)
+(1,656 missing values generated)
+(1,657 missing values generated)
+(1,656 missing values generated)
+(1,657 missing values generated)
+(1,682 missing values generated)
+(1,656 missing values generated)
+(1,656 missing values generated)
+(1,658 missing values generated)
+(1,660 missing values generated)
+(1,661 missing values generated)
+(1,680 missing values generated)
+(1,656 missing values generated)
+(1,656 missing values generated)
+(1,656 missing values generated)
+(542 missing values generated)
+(3,066 missing values generated)
+(1,656 missing values generated)
+(3,419 missing values generated)
+(1,656 missing values generated)
+(3,374 missing values generated)
+(1,656 missing values generated)
+(3,121 missing values generated)
+(3,411 missing values generated)
+(3,370 missing values generated)
+(1,656 missing values generated)
+(1,657 missing values generated)
+(1,656 missing values generated)
+(1,660 missing values generated)
+(1,680 missing values generated)
+(1,656 missing values generated)
+(1,656 missing values generated)
+(542 missing values generated)
+(1,762 missing values generated)
+(1,761 missing values generated)
+(1,760 missing values generated)
+(1,759 missing values generated)
+(1,760 missing values generated)
+(1,759 missing values generated)
+(1,761 missing values generated)
+(1,786 missing values generated)
+(1,761 missing values generated)
+(1,761 missing values generated)
+(1,761 missing values generated)
+(1,759 missing values generated)
+(1,760 missing values generated)
+(1,781 missing values generated)
+(1,760 missing values generated)
+(1,759 missing values generated)
+(1,760 missing values generated)
+(619 missing values generated)
+(3,113 missing values generated)
+(1,759 missing values generated)
+(3,453 missing values generated)
+(1,759 missing values generated)
+(3,398 missing values generated)
+(1,759 missing values generated)
+(3,197 missing values generated)
+(3,450 missing values generated)
+(3,389 missing values generated)
+(1,759 missing values generated)
+(1,760 missing values generated)
+(1,759 missing values generated)
+(1,759 missing values generated)
+(1,781 missing values generated)
+(1,760 missing values generated)
+(1,760 missing values generated)
+(619 missing values generated)
+
+. 
+.         
+. ***
+. *VALID WAVE AND CONSECUTIVE WAVE ANALYSIS
+. ***
+. clonevar TAScheck = TAS 
+(670 missing values generated)
+
+. replace TAScheck = 0 if TAS == .
+(670 real changes made)
+
+. 
+. tab TAScheck, m
+
+ Sum of All |
+  TAS Flags |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        670       18.80       18.80
+          1 |        520       14.59       33.40
+          2 |        557       15.63       49.03
+          3 |        576       16.17       65.20
+          4 |        796       22.34       87.54
+          5 |        444       12.46      100.00
+------------+-----------------------------------
+      Total |      3,563      100.00
+
+. /*===============================================
+>  Sum of All |
+>   TAS Flags |      Freq.     Percent        Cum.
+> ------------+-----------------------------------
+>           0 |        670       18.80       18.80
+>           1 |        520       14.59       33.40
+>           2 |        557       15.63       49.03
+>           3 |        576       16.17       65.20
+>           4 |        796       22.34       87.54
+>           5 |        444       12.46      100.00
+> ------------+-----------------------------------
+>       Total |      3,563      100.00
+> ===============================================*/
+.         codebook ParticipantID // 3,563 (total unique persons)
+
+---------------------------------------------------------------------------------------------------
+ParticipantID                                                                           (unlabeled)
+---------------------------------------------------------------------------------------------------
+
+                  Type: Numeric (float)
+
+                 Range: [4037,6872174]                Units: 1
+         Unique values: 3,563                     Missing .: 0/3,563
+
+                  Mean: 3.3e+06
+             Std. dev.: 2.2e+06
+
+           Percentiles:     10%       25%       50%       75%       90%
+                         647034   1.4e+06   2.7e+06   5.6e+06   6.4e+06
+
+.         display 3563*6 // 21,378 (total possible person-waves)
+21378
+
+.         display 520+2*557+3*576+4*796+5*444 // 8,766 (total available person-waves)
+8766
+
+.         codebook ParticipantID if TAScheck>=1 & TAScheck!=. // 2,893 (total unique persons with a
+> ny valid data)
+
+---------------------------------------------------------------------------------------------------
+ParticipantID                                                                           (unlabeled)
+---------------------------------------------------------------------------------------------------
+
+                  Type: Numeric (float)
+
+                 Range: [4037,6872174]                Units: 1
+         Unique values: 2,893                     Missing .: 0/2,893
+
+                  Mean: 3.4e+06
+             Std. dev.: 2.2e+06
+
+           Percentiles:     10%       25%       50%       75%       90%
+                         656031   1.5e+06   2.8e+06   5.6e+06   6.4e+06
+
+.                 // 670 persons without any valid TAS data
+.         display 3563-670-520 // 2,373 (persons with at least two waves of data)
+2373
+
+. 
+. gen consec = .
+(3,563 missing values generated)
+
+.         foreach x in 7 9 11 13 15 {
+  2.                 local j = `x' - 2
+  3.                 replace consec = 1 if TAS`x'==1 & TAS`j'==1
+  4.                 }
+(656 real changes made)
+(407 real changes made)
+(462 real changes made)
+(383 real changes made)
+(365 real changes made)
+
+. tab consec if TAScheck>=1 & TAScheck!=.
+
+     consec |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |      2,273      100.00      100.00
+------------+-----------------------------------
+      Total |      2,273      100.00
+
+.         // 2,273 with two consecutive waves of data at any point
+.         display 2373-2273
+100
+
+.                 // 100 persons without consecutive wave data
+.         
+. tab TAScheck if consec==1 & TAScheck>=1 & TAScheck!=.
+
+ Sum of All |
+  TAS Flags |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          2 |        462       20.33       20.33
+          3 |        571       25.12       45.45
+          4 |        796       35.02       80.47
+          5 |        444       19.53      100.00
+------------+-----------------------------------
+      Total |      2,273      100.00
+
+. /*===============================================
+>  Sum of All |
+>   TAS Flags |      Freq.     Percent        Cum.
+> ------------+-----------------------------------
+>           2 |        462       20.33       20.33
+>           3 |        571       25.12       45.45
+>           4 |        796       35.02       80.47
+>           5 |        444       19.53      100.00
+> ------------+-----------------------------------
+>       Total |      2,273      100.00
+> ===============================================*/
+. display 2*462+3*571+4*796+5*444 // 8041 person-wave observations among consecutive waves
+8041
+
+. 
+. 
+. ***
+. *RESHAPING LONG
+. ***
+. drop TAS TAScheck // total indicators; wave-level indicators retained
+
+. 
+. reshape long TAS OffLastArrest AGE WorryJob OCC UnemploymentComp GraduatedHS ///
+>         LikelyPayWell FUT_Layoff Health AlcUse AgeLastArrest AgeLastProbation ///
+>         OffLastProbation AgeLastJail OffLastJail FIN_Scale Risky DIS_Scale EnrollNow ///
+>         EarningsLY EarningsBefore RelationshipStatus KidsYN Benefits ForceOut ///
+>         ArrestEver ProbationEver JailEver s_OffLastArrest s_OffLastJail ///
+>         s_OffLastProbation Employed_Total Searching_Total Discgd_Total ///
+>         TransitionEmploy TransitionOOLF crash SrsArrest s_SrsArrest SrsJail ///
+>         s_SrsJail SrsProbation s_SrsProbation EarningsLY_z EarningsBefore_z ///
+>         WaveEarnings WaveEarnings_z EarningsPerMo EarningsPerMo_z AnyEmploy ///
+>         AnySearch AnyDiscgd pmc_WorryJob pmc_FUT_Layoff pmc_LikelyPayWell ///
+>         pmc_Health pmc_FIN_Scale pmc_DIS_Scale pmc_Risky pmc_AGE AgeAdjust ///
+>         ArrestEver_L1 JailEver_L1 ProbationEver_L1 WorryJob_L1 FUT_Layoff_L1 ///
+>         LikelyPayWell_L1 GraduatedHS_L1 EnrollNow_L1 Relationship_L1 Kids_L1 ///
+>         UnemploymentComp_L1 Health_L1 AlcUse_L1 FINScale_L1 DISScale_L1 Crash_L1 ///
+>         ForceOut_L1 Risky_L1 AGE_L1 SrsArrest_L1 s_SrsArrest_L1 SrsJail_L1 ///
+>         s_SrsJail_L1 SrsProbation_L1 s_SrsProbation_L1 AgeLastArrest_L1 ///
+>         AgeLastJail_L1 AgeLastProbation_L1 WorryJob_L1c FUT_Layoff_L1c ///
+>         LikelyPayWell_L1c Health_L1c FINScale_L1c DISScale_L1c Risky_L1c AGE_L1c ///
+>         log_Earnings, i(ParticipantID) j(wave)
+(j = 5 7 9 11 13 15)
+(variable EarningsBefore5 not found)
+(variable Benefits5 not found)
+(variable EarningsLY_z5 not found)
+(variable EarningsBefore_z5 not found)
+(variable WaveEarnings5 not found)
+(variable WaveEarnings_z5 not found)
+(variable EarningsPerMo5 not found)
+(variable EarningsPerMo_z5 not found)
+(variable ArrestEver_L15 not found)
+(variable JailEver_L15 not found)
+(variable ProbationEver_L15 not found)
+(variable WorryJob_L15 not found)
+(variable FUT_Layoff_L15 not found)
+(variable LikelyPayWell_L15 not found)
+(variable GraduatedHS_L15 not found)
+(variable EnrollNow_L15 not found)
+(variable Relationship_L15 not found)
+(variable Kids_L15 not found)
+(variable UnemploymentComp_L15 not found)
+(variable Health_L15 not found)
+(variable AlcUse_L15 not found)
+(variable FINScale_L15 not found)
+(variable DISScale_L15 not found)
+(variable Crash_L15 not found)
+(variable ForceOut_L15 not found)
+(variable Risky_L15 not found)
+(variable AGE_L15 not found)
+(variable SrsArrest_L15 not found)
+(variable s_SrsArrest_L15 not found)
+(variable SrsJail_L15 not found)
+(variable s_SrsJail_L15 not found)
+(variable SrsProbation_L15 not found)
+(variable s_SrsProbation_L15 not found)
+(variable AgeLastArrest_L15 not found)
+(variable AgeLastJail_L15 not found)
+(variable AgeLastProbation_L15 not found)
+(variable WorryJob_L1c5 not found)
+(variable FUT_Layoff_L1c5 not found)
+(variable LikelyPayWell_L1c5 not found)
+(variable Health_L1c5 not found)
+(variable FINScale_L1c5 not found)
+(variable DISScale_L1c5 not found)
+(variable Risky_L1c5 not found)
+(variable AGE_L1c5 not found)
+(variable log_Earnings5 not found)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            3,563   ->   21,378      
+Number of variables                 565   ->   116         
+j variable (6 values)                     ->   wave
+xij variables:
+                    TAS5 TAS7 ... TAS15   ->   TAS
+OffLastArrest5 OffLastArrest7 ... OffLastArrest15->OffLastArrest
+                    AGE5 AGE7 ... AGE15   ->   AGE
+     WorryJob5 WorryJob7 ... WorryJob15   ->   WorryJob
+                    OCC5 OCC7 ... OCC15   ->   OCC
+UnemploymentComp5 UnemploymentComp7 ... UnemploymentComp15->UnemploymentComp
+GraduatedHS5 GraduatedHS7 ... GraduatedHS15->  GraduatedHS
+LikelyPayWell5 LikelyPayWell7 ... LikelyPayWell15->LikelyPayWell
+FUT_Layoff5 FUT_Layoff7 ... FUT_Layoff15  ->   FUT_Layoff
+           Health5 Health7 ... Health15   ->   Health
+           AlcUse5 AlcUse7 ... AlcUse15   ->   AlcUse
+AgeLastArrest5 AgeLastArrest7 ... AgeLastArrest15->AgeLastArrest
+AgeLastProbation5 AgeLastProbation7 ... AgeLastProbation15->AgeLastProbation
+OffLastProbation5 OffLastProbation7 ... OffLastProbation15->OffLastProbation
+AgeLastJail5 AgeLastJail7 ... AgeLastJail15->  AgeLastJail
+OffLastJail5 OffLastJail7 ... OffLastJail15->  OffLastJail
+  FIN_Scale5 FIN_Scale7 ... FIN_Scale15   ->   FIN_Scale
+              Risky5 Risky7 ... Risky15   ->   Risky
+  DIS_Scale5 DIS_Scale7 ... DIS_Scale15   ->   DIS_Scale
+  EnrollNow5 EnrollNow7 ... EnrollNow15   ->   EnrollNow
+EarningsLY5 EarningsLY7 ... EarningsLY15  ->   EarningsLY
+EarningsBefore5 EarningsBefore7 ... EarningsBefore15->EarningsBefore
+RelationshipStatus5 RelationshipStatus7 ... RelationshipStatus15->RelationshipStatus
+           KidsYN5 KidsYN7 ... KidsYN15   ->   KidsYN
+     Benefits5 Benefits7 ... Benefits15   ->   Benefits
+     ForceOut5 ForceOut7 ... ForceOut15   ->   ForceOut
+ArrestEver5 ArrestEver7 ... ArrestEver15  ->   ArrestEver
+ProbationEver5 ProbationEver7 ... ProbationEver15->ProbationEver
+     JailEver5 JailEver7 ... JailEver15   ->   JailEver
+s_OffLastArrest5 s_OffLastArrest7 ... s_OffLastArrest15->s_OffLastArrest
+s_OffLastJail5 s_OffLastJail7 ... s_OffLastJail15->s_OffLastJail
+s_OffLastProbation5 s_OffLastProbation7 ... s_OffLastProbation15->s_OffLastProbation
+Employed_Total5 Employed_Total7 ... Employed_Total15->Employed_Total
+Searching_Total5 Searching_Total7 ... Searching_Total15->Searching_Total
+Discgd_Total5 Discgd_Total7 ... Discgd_Total15->Discgd_Total
+TransitionEmploy5 TransitionEmploy7 ... TransitionEmploy15->TransitionEmploy
+TransitionOOLF5 TransitionOOLF7 ... TransitionOOLF15->TransitionOOLF
+              crash5 crash7 ... crash15   ->   crash
+  SrsArrest5 SrsArrest7 ... SrsArrest15   ->   SrsArrest
+s_SrsArrest5 s_SrsArrest7 ... s_SrsArrest15->  s_SrsArrest
+        SrsJail5 SrsJail7 ... SrsJail15   ->   SrsJail
+  s_SrsJail5 s_SrsJail7 ... s_SrsJail15   ->   s_SrsJail
+SrsProbation5 SrsProbation7 ... SrsProbation15->SrsProbation
+s_SrsProbation5 s_SrsProbation7 ... s_SrsProbation15->s_SrsProbation
+EarningsLY_z5 EarningsLY_z7 ... EarningsLY_z15->EarningsLY_z
+EarningsBefore_z5 EarningsBefore_z7 ... EarningsBefore_z15->EarningsBefore_z
+WaveEarnings5 WaveEarnings7 ... WaveEarnings15->WaveEarnings
+WaveEarnings_z5 WaveEarnings_z7 ... WaveEarnings_z15->WaveEarnings_z
+EarningsPerMo5 EarningsPerMo7 ... EarningsPerMo15->EarningsPerMo
+EarningsPerMo_z5 EarningsPerMo_z7 ... EarningsPerMo_z15->EarningsPerMo_z
+  AnyEmploy5 AnyEmploy7 ... AnyEmploy15   ->   AnyEmploy
+  AnySearch5 AnySearch7 ... AnySearch15   ->   AnySearch
+  AnyDiscgd5 AnyDiscgd7 ... AnyDiscgd15   ->   AnyDiscgd
+pmc_WorryJob5 pmc_WorryJob7 ... pmc_WorryJob15->pmc_WorryJob
+pmc_FUT_Layoff5 pmc_FUT_Layoff7 ... pmc_FUT_Layoff15->pmc_FUT_Layoff
+pmc_LikelyPayWell5 pmc_LikelyPayWell7 ... pmc_LikelyPayWell15->pmc_LikelyPayWell
+pmc_Health5 pmc_Health7 ... pmc_Health15  ->   pmc_Health
+pmc_FIN_Scale5 pmc_FIN_Scale7 ... pmc_FIN_Scale15->pmc_FIN_Scale
+pmc_DIS_Scale5 pmc_DIS_Scale7 ... pmc_DIS_Scale15->pmc_DIS_Scale
+  pmc_Risky5 pmc_Risky7 ... pmc_Risky15   ->   pmc_Risky
+        pmc_AGE5 pmc_AGE7 ... pmc_AGE15   ->   pmc_AGE
+  AgeAdjust5 AgeAdjust7 ... AgeAdjust15   ->   AgeAdjust
+ArrestEver_L15 ArrestEver_L17 ... ArrestEver_L115->ArrestEver_L1
+JailEver_L15 JailEver_L17 ... JailEver_L115->  JailEver_L1
+ProbationEver_L15 ProbationEver_L17 ... ProbationEver_L115->ProbationEver_L1
+WorryJob_L15 WorryJob_L17 ... WorryJob_L115->  WorryJob_L1
+FUT_Layoff_L15 FUT_Layoff_L17 ... FUT_Layoff_L115->FUT_Layoff_L1
+LikelyPayWell_L15 LikelyPayWell_L17 ... LikelyPayWell_L115->LikelyPayWell_L1
+GraduatedHS_L15 GraduatedHS_L17 ... GraduatedHS_L115->GraduatedHS_L1
+EnrollNow_L15 EnrollNow_L17 ... EnrollNow_L115->EnrollNow_L1
+Relationship_L15 Relationship_L17 ... Relationship_L115->Relationship_L1
+        Kids_L15 Kids_L17 ... Kids_L115   ->   Kids_L1
+UnemploymentComp_L15 UnemploymentComp_L17 ... UnemploymentComp_L115->UnemploymentComp_L1
+  Health_L15 Health_L17 ... Health_L115   ->   Health_L1
+  AlcUse_L15 AlcUse_L17 ... AlcUse_L115   ->   AlcUse_L1
+FINScale_L15 FINScale_L17 ... FINScale_L115->  FINScale_L1
+DISScale_L15 DISScale_L17 ... DISScale_L115->  DISScale_L1
+     Crash_L15 Crash_L17 ... Crash_L115   ->   Crash_L1
+ForceOut_L15 ForceOut_L17 ... ForceOut_L115->  ForceOut_L1
+     Risky_L15 Risky_L17 ... Risky_L115   ->   Risky_L1
+           AGE_L15 AGE_L17 ... AGE_L115   ->   AGE_L1
+SrsArrest_L15 SrsArrest_L17 ... SrsArrest_L115->SrsArrest_L1
+s_SrsArrest_L15 s_SrsArrest_L17 ... s_SrsArrest_L115->s_SrsArrest_L1
+SrsJail_L15 SrsJail_L17 ... SrsJail_L115  ->   SrsJail_L1
+s_SrsJail_L15 s_SrsJail_L17 ... s_SrsJail_L115->s_SrsJail_L1
+SrsProbation_L15 SrsProbation_L17 ... SrsProbation_L115->SrsProbation_L1
+s_SrsProbation_L15 s_SrsProbation_L17 ... s_SrsProbation_L115->s_SrsProbation_L1
+AgeLastArrest_L15 AgeLastArrest_L17 ... AgeLastArrest_L115->AgeLastArrest_L1
+AgeLastJail_L15 AgeLastJail_L17 ... AgeLastJail_L115->AgeLastJail_L1
+AgeLastProbation_L15 AgeLastProbation_L17 ... AgeLastProbation_L115->AgeLastProbation_L1
+WorryJob_L1c5 WorryJob_L1c7 ... WorryJob_L1c15->WorryJob_L1c
+FUT_Layoff_L1c5 FUT_Layoff_L1c7 ... FUT_Layoff_L1c15->FUT_Layoff_L1c
+LikelyPayWell_L1c5 LikelyPayWell_L1c7 ... LikelyPayWell_L1c15->LikelyPayWell_L1c
+Health_L1c5 Health_L1c7 ... Health_L1c15  ->   Health_L1c
+FINScale_L1c5 FINScale_L1c7 ... FINScale_L1c15->FINScale_L1c
+DISScale_L1c5 DISScale_L1c7 ... DISScale_L1c15->DISScale_L1c
+  Risky_L1c5 Risky_L1c7 ... Risky_L1c15   ->   Risky_L1c
+        AGE_L1c5 AGE_L1c7 ... AGE_L1c15   ->   AGE_L1c
+log_Earnings5 log_Earnings7 ... log_Earnings15->log_Earnings
+-----------------------------------------------------------------------------
+
+.         
+. 
+. ****
+. **MERGING SECONDARY MARKET INDICATORS
+. ****
+. 
+. cd "E:\Holly\Job Search\New Data 8.1.23"
+E:\Holly\Job Search\New Data 8.1.23
+
+. do 2010OCC_Occupation.do
+
+. ** OCCUPATION CODES (BASED ON OCC) **
+. 
+. gen occupation = .
+(21,378 missing values generated)
+
+. 
+. * MANAGEMENT OCCUPATIONS
+. replace occupation = 0 if OCC >= 10 & OCC <= 430
+(130 real changes made)
+
+. 
+. * BUSINESS OPERATIONS SPECIALISTS
+. replace occupation = 0 if OCC >= 500 & OCC <= 740 
+(61 real changes made)
+
+. 
+. * FINANCIAL SPECIALISTS
+. replace occupation = 0 if OCC >= 800 & OCC <= 950 
+(52 real changes made)
+
+. 
+. * COMPUTER & MATHEMATICAL OCCUPATIONS
+. replace occupation = 0 if OCC >= 1000 & OCC <= 1240 
+(111 real changes made)
+
+. 
+. * ARCHITECTURE & ENGINEERING OCCUPATIONS
+. replace occupation = 0 if OCC >= 1300 & OCC <= 1560 
+(74 real changes made)
+
+. 
+. * LIFE, PHYSICAL, & SOCIAL SCIENCE OCCUPATIONS
+. replace occupation = 0 if OCC >= 1600 & OCC <= 1965 
+(95 real changes made)
+
+. 
+. * COMMUNITY AND SOCIAL SERVICES OCCUPATIONS
+. replace occupation = 0 if OCC >= 2000 & OCC <= 2160 
+(122 real changes made)
+
+. 
+. * EDUCATION, TRAINING, & LIBRARY OCCUPATIONS
+. replace occupation = 0 if OCC >= 2200 & OCC <= 2550 
+(319 real changes made)
+
+. 
+. * ARTS, DESIGN, ENTERTAINMENT, SPORTS, & MEDIA OCCUPATIONS
+. replace occupation = 0 if OCC >= 2600 & OCC <= 2960 
+(202 real changes made)
+
+. 
+. * HEALTHCARE PRACTITIONERS & TECHNICAL OCCUPATIONS
+. replace occupation = 0 if OCC >= 3000 & OCC <= 3540
+(163 real changes made)
+
+. 
+. * HEALTHCARE SUPPORT OCCUPATIONS
+. replace occupation = 0 if OCC >= 3600 & OCC <= 3655
+(285 real changes made)
+
+. 
+. * PROTECTIVE SERVICE OCCUPATIONS
+. replace occupation = 0 if OCC >= 3700 & OCC <= 3955
+(174 real changes made)
+
+. 
+. * FOOD PREPARATION & SERVING OCCUPATIONS
+. replace occupation = 0 if OCC == 4000 | OCC == 4010
+(189 real changes made)
+
+. replace occupation = 1 if OCC >= 4020 & OCC <= 4160
+(1,054 real changes made)
+
+. 
+. * BUILDING & GROUNDS CLEANING & MAINTENANCE OCCUPATIONS
+. replace occupation = 0 if OCC == 4200 | OCC == 4210
+(22 real changes made)
+
+. replace occupation = 1 if OCC >= 4220 & OCC <= 4250
+(379 real changes made)
+
+. 
+. * PERSONAL CARE & SERVICE OCCUPATIONS
+. replace occupation = 0 if OCC >= 4300 & OCC <= 4340
+(34 real changes made)
+
+. replace occupation = 1 if OCC == 4350 | OCC == 4400
+(23 real changes made)
+
+. replace occupation = 0 if OCC == 4410
+(1 real change made)
+
+. replace occupation = 1 if OCC == 4420 | OCC == 4430
+(49 real changes made)
+
+. replace occupation = 0 if OCC == 4460 | OCC == 4465
+(0 real changes made)
+
+. replace occupation = 1 if OCC >= 4500 & OCC <= 4540
+(130 real changes made)
+
+. replace occupation = 0 if OCC >= 4550 & OCC <= 4610
+(336 real changes made)
+
+. replace occupation = 1 if OCC == 4620
+(58 real changes made)
+
+. replace occupation = 0 if OCC == 4640
+(26 real changes made)
+
+. replace occupation = 1 if OCC == 4650
+(15 real changes made)
+
+. 
+. * SALES OCCUPATIONS
+. replace occupation = 0 if OCC == 4700 | OCC == 4710
+(194 real changes made)
+
+. replace occupation = 1 if OCC == 4720
+(398 real changes made)
+
+. replace occupation = 0 if OCC == 4740
+(18 real changes made)
+
+. replace occupation = 1 if OCC == 4750 | OCC == 4760
+(474 real changes made)
+
+. replace occupation = 0 if OCC >= 4800 & OCC <= 4940
+(127 real changes made)
+
+. replace occupation = 1 if OCC >= 4950 & OCC <= 4960
+(30 real changes made)
+
+. replace occupation = 0 if OCC == 4965
+(0 real changes made)
+
+. 
+. * OFFICE & ADMINISTRATIVE SUPPORT OCCUPATIONS
+. replace occupation = 0 if OCC >= 5000 & OCC <= 5250
+(307 real changes made)
+
+. replace occupation = 1 if OCC == 5260
+(20 real changes made)
+
+. replace occupation = 0 if OCC >= 5300 & OCC <=5610
+(286 real changes made)
+
+. replace occupation = 1 if OCC == 5620
+(219 real changes made)
+
+. replace occupation = 0 if OCC >= 5630 & OCC <= 5940
+(284 real changes made)
+
+. 
+. * FARMING, FISHING, & FORESTRY OCCUPATIONS
+. replace occupation = 0 if OCC >= 6000 & OCC <= 6040
+(2 real changes made)
+
+. replace occupation = 1 if OCC >= 6050 & OCC <= 6130
+(59 real changes made)
+
+. 
+. * CONSTRUCTION TRADES
+. replace occupation = 0 if OCC == 6200
+(29 real changes made)
+
+. replace occupation = 1 if OCC >= 6210 & OCC <= 6260
+(160 real changes made)
+
+. replace occupation = 0 if OCC == 6300 | OCC == 6320
+(10 real changes made)
+
+. replace occupation = 1 if OCC >= 6330 & OCC <= 6600
+(96 real changes made)
+
+. replace occupation = 0 if OCC == 6660
+(0 real changes made)
+
+. replace occupation = 1 if OCC >= 6700 & OCC <= 6730
+(4 real changes made)
+
+. replace occupation = 0 if OCC == 6740
+(2 real changes made)
+
+. replace occupation = 1 if OCC >= 6750 & OCC <= 6765
+(8 real changes made)
+
+. 
+. * EXTRACTION WORKERS
+. replace occupation = 0 if OCC >= 6800 & OCC <= 6840
+(6 real changes made)
+
+. replace occupation = 1 if OCC == 6940
+(1 real change made)
+
+. 
+. * INSTALLATION, MAINTENANCE, & REPAIR WORKERS
+. replace occupation = 0 if OCC == 7000
+(18 real changes made)
+
+. replace occupation = 1 if OCC >=7010 & OCC <= 7630
+(156 real changes made)
+
+. 
+. * PRODUCTION OCCUPATIONS
+. replace occupation = 0 if OCC == 7700
+(35 real changes made)
+
+. replace occupation = 1 if OCC >= 7710 & OCC <= 7750
+(73 real changes made)
+
+. replace occupation = 0 if OCC == 7800
+(11 real changes made)
+
+. replace occupation = 1 if OCC >= 7810 & OCC <= 7840
+(37 real changes made)
+
+. replace occupation = 0 if OCC == 7850
+(1 real change made)
+
+. replace occupation = 1 if OCC == 7855
+(0 real changes made)
+
+. replace occupation = 0 if OCC >= 7900 & OCC <= 8200
+(43 real changes made)
+
+. replace occupation = 1 if OCC == 8210
+(0 real changes made)
+
+. replace occupation = 0 if OCC >= 8220 & OCC <= 8255
+(20 real changes made)
+
+. replace occupation = 1 if OCC >= 8256 & OCC <= 8310
+(14 real changes made)
+
+. replace occupation = 0 if OCC == 8320
+(2 real changes made)
+
+. replace occupation = 1 if OCC == 8330
+(0 real changes made)
+
+. replace occupation = 0 if OCC == 8340
+(0 real changes made)
+
+. replace occupation = 1 if OCC == 8350
+(0 real changes made)
+
+. replace occupation = 0 if OCC >= 8400 & OCC <= 8430
+(3 real changes made)
+
+. replace occupation = 1 if OCC == 8450 | OCC == 8460
+(0 real changes made)
+
+. replace occupation = 0 if OCC == 8500
+(2 real changes made)
+
+. replace occupation = 1 if OCC == 8510
+(0 real changes made)
+
+. replace occupation = 0 if OCC == 8530 | OCC == 8540
+(7 real changes made)
+
+. replace occupation = 1 if OCC == 8550
+(1 real change made)
+
+. replace occupation = 0 if OCC >= 8600 & OCC <= 8640
+(8 real changes made)
+
+. replace occupation = 1 if OCC == 8650 | OCC == 8710
+(15 real changes made)
+
+. replace occupation = 0 if OCC >= 8720 & OCC <= 8800
+(79 real changes made)
+
+. replace occupation = 1 if OCC == 8810
+(2 real changes made)
+
+. replace occupation = 0 if OCC >= 8830 & OCC <= 8900
+(15 real changes made)
+
+. replace occupation = 1 if OCC == 8910 | OCC == 8920
+(1 real change made)
+
+. replace occupation = 0 if OCC == 8930
+(3 real changes made)
+
+. replace occupation = 1 if OCC >= 8940 & OCC <= 8960
+(31 real changes made)
+
+. replace occupation = 0 if OCC == 8965
+(0 real changes made)
+
+. 
+. * TRANSPORTATION & MATERIAL MOVING OCCUPATIONS
+. replace occupation = 0 if OCC >= 9000 & OCC <= 9600
+(185 real changes made)
+
+. replace occupation = 1 if OCC >= 9610 & OCC <= 9640
+(276 real changes made)
+
+. replace occupation = 0 if OCC >= 9650 & OCC <= 9750
+(15 real changes made)
+
+. 
+. * MILITARY SPECIFIC OCCUPATIONS
+. replace occupation = 0 if OCC >= 9800 & OCC <= 9830
+(142 real changes made)
+
+. 
+. label define occupation 0 "not secondary" 1 "secondary"
+
+. 
+. label values occupation occupation
+
+. 
+end of do-file
+
+. 
+. clonevar Secondary = occupation 
+(13,345 missing values generated)
+
+.         replace Secondary = .n if TAS != 1
+(12,612 real changes made, 12,612 to missing)
+
+.         
+. ***
+. *GRAND-MEAN CENTERING LEVEL 1 VARIABLES
+. ***     
+. foreach x in WorryJob_L1 FUT_Layoff_L1 LikelyPayWell_L1 Health_L1 FINScale_L1 ///
+>         DISScale_L1 Risky_L1 AGE_L1 {
+  2.                 egen gm_`x' = mean(`x')
+  3. } // generating grand mean
+
+. 
+. foreach x in WorryJob_L1 FUT_Layoff_L1 LikelyPayWell_L1 Health_L1 FINScale_L1 ///
+>         DISScale_L1 Risky_L1 AGE_L1 {
+  2.                 gen `x'gmc = `x' - gm_`x'
+  3. } // generating grand mean centered values
+(14,253 missing values generated)
+(14,261 missing values generated)
+(14,335 missing values generated)
+(14,263 missing values generated)
+(14,371 missing values generated)
+(14,256 missing values generated)
+(14,259 missing values generated)
+(5,869 missing values generated)
+
+. 
+. 
+. ***
+. *LABELING AMBIGUOUS VALUES
+. ***     
+. 
+. label define arrest 0"Not arrested" 1"Arrested"
+
+.         foreach x in ArrestEver ArrestEver_All ArrestEver_L1 {
+  2.                 label value `x' arrest 
+  3.         }
+
+.         
+. label define jail 0"Not jailed" 1"Jailed"
+
+.         foreach x in JailEver JailEver_All JailEver_L1 {
+  2.                 label value `x' jail
+  3.         }
+
+.         
+. label define probation 0"No probation history" 1"Probation history"
+
+.         foreach x in ProbationEver ProbationEver_All ProbationEver_L1 {
+  2.                 label value `x' probation
+  3.         }
+
+. 
+. foreach x in RelationshipStatus Relationship_L1 {
+  2.         label value `x' mar
+  3. }
+
+. 
+. foreach x in GraduatedHS GraduatedHS_L1 {
+  2.         label value `x' highschool
+  3. }
+
+. 
+. foreach x in s_SrsArrest s_SrsJail s_SrsProbation s_SrsArrest_L1 s_SrsJail_L1 s_SrsProbation_L1 {
+  2.         label value `x' soffcat2
+  3. }
+
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  E:\Holly\Job Search\LMParticipation_PublicFiles\Log Output\SECTION 3 - Data Assessment
+> s.log
+  log type:  text
+ closed on:  12 Jun 2025, 10:12:28
+---------------------------------------------------------------------------------------------------
