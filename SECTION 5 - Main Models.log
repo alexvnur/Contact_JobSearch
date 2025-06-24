@@ -1,0 +1,2375 @@
+----------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  E:\Holly\Job Search\LMParticipation_PublicFiles\Log Output\SECTION 5 - Main Models.log
+  log type:  text
+ opened on:  24 Jun 2025, 14:16:08
+
+. 
+. *Macros for Models
+. global state Employed_Total Searching_Total Discgd_Total
+
+. global contact ArrestEver_L1 JailEver_L1 ProbationEver_L1
+
+. global l1control i.GraduatedHS_L1 EnrollNow_L1 Relationship_L1 Kids_L1 ///
+>         UnemploymentComp_L1 Health_L1 AlcUse_L1 FINScale_L1 DISScale_L1 Crash_L1 ///
+>         ForceOut_L1 Risky_L1 AGE_L1
+
+. global l1controlpmc i.GraduatedHS_L1 EnrollNow_L1 Relationship_L1 Kids_L1 ///
+>         UnemploymentComp_L1 Health_L1c AlcUse_L1 FINScale_L1c DISScale_L1c Crash_L1 ///
+>         ForceOut_L1 Risky_L1c AGE_L1c
+
+. global l2control Sex i.Race
+
+. 
+. 
+. ****
+. **LABOR MARKET INSECURITY
+. ****
+. 
+. **Arrest
+. mepoisson WorryJob ArrestEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -11369.642  
+Iteration 1:   log likelihood =  -11080.53  
+Iteration 2:   log likelihood = -11080.177  
+Iteration 3:   log likelihood = -11080.177  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -11790.297
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -11790.297  (not concave)
+Iteration 1:   log likelihood = -11184.103  (not concave)
+Iteration 2:   log likelihood = -10955.067  
+Iteration 3:   log likelihood = -10882.551  
+Iteration 4:   log likelihood = -10880.388  
+Iteration 5:   log likelihood = -10880.343  
+Iteration 6:   log likelihood = -10880.343  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =       3.35
+Log likelihood = -10880.343                     Prob > chi2       =     0.0671
+-------------------------------------------------------------------------------
+     WorryJob | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ArrestEver_L1 |   .0392017   .0214071     1.83   0.067    -.0027555    .0811589
+        _cons |   1.240708   .0110817   111.96   0.000     1.218988    1.262427
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   .0797413   .0060863                      .0686618    .0926087
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 399.67       Prob >= chibar2 = 0.0000
+
+. mepoisson WorryJob ArrestEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // mul
+> tivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -11314.883  
+Iteration 1:   log likelihood = -11028.723  
+Iteration 2:   log likelihood = -11028.373  
+Iteration 3:   log likelihood = -11028.373  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -11780.354
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -11780.354  (not concave)
+Iteration 1:   log likelihood = -11175.748  (not concave)
+Iteration 2:   log likelihood = -10943.487  
+Iteration 3:   log likelihood = -10856.837  
+Iteration 4:   log likelihood =  -10848.76  
+Iteration 5:   log likelihood = -10848.661  
+Iteration 6:   log likelihood = -10848.661  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(19)     =      67.64
+Log likelihood = -10848.661                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+           WorryJob | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+      ArrestEver_L1 |   .0458754   .0231827     1.98   0.048     .0004381    .0913126
+                    |
+     GraduatedHS_L1 |
+High school degree  |  -.1409891   .0333532    -4.23   0.000    -.2063603    -.075618
+               GED  |  -.0293321   .0437963    -0.67   0.503    -.1151713    .0565071
+                    |
+       EnrollNow_L1 |  -.0088553   .0187115    -0.47   0.636    -.0455292    .0278186
+    Relationship_L1 |  -.0246869   .0224233    -1.10   0.271    -.0686359     .019262
+            Kids_L1 |  -.0200987   .0241131    -0.83   0.405    -.0673595    .0271621
+UnemploymentComp_L1 |  -.0278923   .0465253    -0.60   0.549    -.1190803    .0632957
+         Health_L1c |  -.0015096   .0124634    -0.12   0.904    -.0259374    .0229183
+          AlcUse_L1 |  -.0126609   .0179544    -0.71   0.481    -.0478509    .0225291
+       FINScale_L1c |  -.0075452   .0107628    -0.70   0.483    -.0286399    .0135495
+       DISScale_L1c |  -.0012711    .012046    -0.11   0.916    -.0248808    .0223386
+           Crash_L1 |   .0470444   .0276807     1.70   0.089    -.0072088    .1012977
+        ForceOut_L1 |   .0170934   .0338914     0.50   0.614    -.0493325    .0835192
+          Risky_L1c |   .0107649   .0170288     0.63   0.527     -.022611    .0441408
+            AGE_L1c |  -.0135442   .0052347    -2.59   0.010     -.023804   -.0032844
+                Sex |  -.0867453   .0198398    -4.37   0.000    -.1256307     -.04786
+                    |
+               Race |
+             Black  |  -.0550624   .0215123    -2.56   0.010    -.0972257   -.0128991
+          Hispanic  |   .0392025   .0378914     1.03   0.301    -.0350632    .1134682
+             Other  |   .0030849   .0473316     0.07   0.948    -.0896834    .0958532
+                    |
+              _cons |   1.402076     .04357    32.18   0.000     1.316681    1.487472
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   .0751338   .0059412                      .0643467    .0877292
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 359.42       Prob >= chibar2 = 0.0000
+
+. 
+. **Jail
+. mepoisson WorryJob JailEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -11367.947  
+Iteration 1:   log likelihood = -11079.286  
+Iteration 2:   log likelihood = -11078.932  
+Iteration 3:   log likelihood = -11078.932  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -11790.369
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -11790.369  (not concave)
+Iteration 1:   log likelihood = -11183.887  (not concave)
+Iteration 2:   log likelihood = -10954.768  
+Iteration 3:   log likelihood = -10881.766  
+Iteration 4:   log likelihood = -10879.662  
+Iteration 5:   log likelihood = -10879.622  
+Iteration 6:   log likelihood = -10879.622  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =       4.83
+Log likelihood = -10879.622                     Prob > chi2       =     0.0280
+-------------------------------------------------------------------------------
+     WorryJob | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+  JailEver_L1 |   .0693362   .0315562     2.20   0.028     .0074872    .1311851
+        _cons |   1.243838   .0102768   121.03   0.000     1.223695     1.26398
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   .0795817   .0060795                      .0685153    .0924354
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 398.62       Prob >= chibar2 = 0.0000
+
+. mepoisson WorryJob JailEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multi
+> variate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -11315.472  
+Iteration 1:   log likelihood = -11029.172  
+Iteration 2:   log likelihood = -11028.823  
+Iteration 3:   log likelihood = -11028.823  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -11780.427
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -11780.427  (not concave)
+Iteration 1:   log likelihood = -11175.759  (not concave)
+Iteration 2:   log likelihood = -10943.507  
+Iteration 3:   log likelihood = -10856.804  
+Iteration 4:   log likelihood = -10848.859  
+Iteration 5:   log likelihood = -10848.757  
+Iteration 6:   log likelihood = -10848.757  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(19)     =      67.44
+Log likelihood = -10848.757                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+           WorryJob | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+        JailEver_L1 |   .0639775   .0331028     1.93   0.053    -.0009028    .1288577
+                    |
+     GraduatedHS_L1 |
+High school degree  |   -.141106   .0333803    -4.23   0.000    -.2065302   -.0756818
+               GED  |  -.0276777   .0438028    -0.63   0.527    -.1135297    .0581742
+                    |
+       EnrollNow_L1 |  -.0105794   .0186522    -0.57   0.571     -.047137    .0259782
+    Relationship_L1 |  -.0246811   .0224256    -1.10   0.271    -.0686345    .0192724
+            Kids_L1 |   -.019309   .0240846    -0.80   0.423     -.066514     .027896
+UnemploymentComp_L1 |  -.0276355   .0465245    -0.59   0.553    -.1188217    .0635508
+         Health_L1c |  -.0006551   .0124623    -0.05   0.958    -.0250808    .0237705
+          AlcUse_L1 |   -.011689   .0179226    -0.65   0.514    -.0468166    .0234387
+       FINScale_L1c |  -.0069884   .0107559    -0.65   0.516    -.0280697    .0140928
+       DISScale_L1c |  -.0017214   .0120473    -0.14   0.886    -.0253337     .021891
+           Crash_L1 |   .0471621   .0276791     1.70   0.088     -.007088    .1014121
+        ForceOut_L1 |    .017119   .0338875     0.51   0.613    -.0492993    .0835374
+          Risky_L1c |   .0111724   .0170355     0.66   0.512    -.0222166    .0445614
+            AGE_L1c |  -.0135748   .0052351    -2.59   0.010    -.0238354   -.0033142
+                Sex |  -.0836095   .0195828    -4.27   0.000     -.121991   -.0452279
+                    |
+               Race |
+             Black  |  -.0541279   .0214925    -2.52   0.012    -.0962524   -.0120033
+          Hispanic  |   .0369852   .0378702     0.98   0.329     -.037239    .1112093
+             Other  |    .000345   .0473987     0.01   0.994    -.0925548    .0932447
+                    |
+              _cons |    1.40559   .0433427    32.43   0.000      1.32064     1.49054
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   .0751764    .005941                      .0643892    .0877707
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 360.13       Prob >= chibar2 = 0.0000
+
+. 
+. **Probation
+. mepoisson WorryJob ProbationEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -11366.784  
+Iteration 1:   log likelihood = -11078.324  
+Iteration 2:   log likelihood = -11077.969  
+Iteration 3:   log likelihood = -11077.969  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -11789.643
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -11789.643  (not concave)
+Iteration 1:   log likelihood = -11183.197  (not concave)
+Iteration 2:   log likelihood = -10954.053  
+Iteration 3:   log likelihood = -10880.773  
+Iteration 4:   log likelihood = -10878.779  
+Iteration 5:   log likelihood = -10878.743  
+Iteration 6:   log likelihood = -10878.743  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =       6.60
+Log likelihood = -10878.743                     Prob > chi2       =     0.0102
+----------------------------------------------------------------------------------
+        WorryJob | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+ProbationEver_L1 |   .0733001    .028527     2.57   0.010     .0173882     .129212
+           _cons |   1.241712   .0104093   119.29   0.000     1.221311    1.262114
+-----------------+----------------------------------------------------------------
+ParticipantID    |
+       var(_cons)|   .0795181   .0060746                      .0684606    .0923615
+----------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 398.45       Prob >= chibar2 = 0.0000
+
+. mepoisson WorryJob ProbationEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // 
+> multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -11313.328  
+Iteration 1:   log likelihood = -11027.345  
+Iteration 2:   log likelihood = -11026.996  
+Iteration 3:   log likelihood = -11026.996  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -11779.814
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -11779.814  (not concave)
+Iteration 1:   log likelihood =  -11175.14  (not concave)
+Iteration 2:   log likelihood = -10942.816  
+Iteration 3:   log likelihood = -10856.571  
+Iteration 4:   log likelihood = -10847.595  
+Iteration 5:   log likelihood = -10847.505  
+Iteration 6:   log likelihood = -10847.505  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(19)     =      69.98
+Log likelihood = -10847.505                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+           WorryJob | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+   ProbationEver_L1 |      .0749   .0299326     2.50   0.012     .0162332    .1335668
+                    |
+     GraduatedHS_L1 |
+High school degree  |  -.1398415    .033224    -4.21   0.000    -.2049594   -.0747236
+               GED  |  -.0319264    .043799    -0.73   0.466    -.1177708     .053918
+                    |
+       EnrollNow_L1 |  -.0098947   .0186552    -0.53   0.596    -.0464582    .0266687
+    Relationship_L1 |  -.0253754   .0224279    -1.13   0.258    -.0693333    .0185826
+            Kids_L1 |  -.0191257   .0240434    -0.80   0.426    -.0662499    .0279985
+UnemploymentComp_L1 |  -.0274193   .0465189    -0.59   0.556    -.1185946     .063756
+         Health_L1c |  -.0013018   .0124655    -0.10   0.917    -.0257339    .0231302
+          AlcUse_L1 |  -.0133431   .0179495    -0.74   0.457    -.0485234    .0218373
+       FINScale_L1c |  -.0073341   .0107587    -0.68   0.495    -.0284207    .0137525
+       DISScale_L1c |  -.0012637   .0120443    -0.10   0.916    -.0248701    .0223427
+           Crash_L1 |   .0475869   .0276746     1.72   0.086    -.0066543    .1018281
+        ForceOut_L1 |   .0176542    .033884     0.52   0.602    -.0487573    .0840656
+          Risky_L1c |   .0107347   .0170285     0.63   0.528    -.0226407      .04411
+            AGE_L1c |   -.013737   .0052353    -2.62   0.009     -.023998    -.003476
+                Sex |  -.0859559   .0196274    -4.38   0.000     -.124425   -.0474868
+                    |
+               Race |
+             Black  |  -.0533647   .0214729    -2.49   0.013    -.0954509   -.0112786
+          Hispanic  |   .0392315   .0378711     1.04   0.300    -.0349946    .1134575
+             Other  |   .0034965   .0473023     0.07   0.941    -.0892142    .0962072
+                    |
+              _cons |   1.402896   .0433274    32.38   0.000     1.317976    1.487817
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   .0750346   .0059355                      .0642581    .0876183
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 358.98       Prob >= chibar2 = 0.0000
+
+. 
+. 
+. 
+. ****
+. **TIME OUT OF THE LABOR FORCE
+. ****
+. 
+. **Arrest
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52647.229  
+Iteration 1:   log likelihood = -30495.571  
+Iteration 2:   log likelihood = -30313.906  
+Iteration 3:   log likelihood = -30312.938  
+Iteration 4:   log likelihood = -30312.938  
+
+Refining starting values:
+
+Grid node 0:   log likelihood =  -18816.91
+
+Fitting full model:
+
+Iteration 0:   log likelihood =  -18816.91  
+Iteration 1:   log likelihood = -17976.208  
+Iteration 2:   log likelihood = -17649.675  
+Iteration 3:   log likelihood = -17622.338  
+Iteration 4:   log likelihood = -17621.488  
+Iteration 5:   log likelihood = -17621.489  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(2)      =      42.71
+Log likelihood = -17621.489                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------
+ Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ WorryJob_L1c |   .0334636   .0057973     5.77   0.000     .0221011     .044826
+  pm_WorryJob |    .092792   .0304437     3.05   0.002     .0331234    .1524605
+        _cons |  -.3416488   .1239348    -2.76   0.006    -.5845566    -.098741
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   4.825924   .2375074                      4.382165    5.314621
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25382.90     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total ArrestEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52313.111  
+Iteration 1:   log likelihood = -30369.636  
+Iteration 2:   log likelihood =  -30179.95  
+Iteration 3:   log likelihood = -30178.859  
+Iteration 4:   log likelihood = -30178.859  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -18795.574
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -18795.574  
+Iteration 1:   log likelihood =  -17964.51  
+Iteration 2:   log likelihood = -17642.783  
+Iteration 3:   log likelihood = -17616.346  
+Iteration 4:   log likelihood = -17615.577  
+Iteration 5:   log likelihood = -17615.578  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =      54.20
+Log likelihood = -17615.578                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------
+ Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ArrestEver_L1 |  -.3318182    .045073    -7.36   0.000    -.4201596   -.2434767
+        _cons |   .0773185   .0529032     1.46   0.144    -.0263699    .1810069
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   4.791107   .2359665                      4.350241     5.27665
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25126.56     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob ArrestEver_L1 if sample == 1 || ParticipantID: // 
+> multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52136.684  
+Iteration 1:   log likelihood = -30291.781  
+Iteration 2:   log likelihood =   -30097.3  
+Iteration 3:   log likelihood = -30096.082  
+Iteration 4:   log likelihood = -30096.082  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -18768.539
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -18768.539  
+Iteration 1:   log likelihood = -17940.998  
+Iteration 2:   log likelihood = -17622.118  
+Iteration 3:   log likelihood = -17596.202  
+Iteration 4:   log likelihood = -17595.477  
+Iteration 5:   log likelihood = -17595.478  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(3)      =      95.57
+Log likelihood = -17595.478                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------
+ Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ WorryJob_L1c |   .0324554   .0058064     5.59   0.000      .021075    .0438358
+  pm_WorryJob |   .0985138   .0303467     3.25   0.001     .0390354    .1579921
+ArrestEver_L1 |  -.3296135    .045194    -7.29   0.000    -.4181921   -.2410349
+        _cons |  -.2841558   .1237251    -2.30   0.022    -.5266526    -.041659
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   4.761166   .2345502                      4.322952    5.243801
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25001.21     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob ArrestEver_L1 $l1controlpmc $l2control  if sample 
+> == 1 || ParticipantID: // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -46726.594  
+Iteration 1:   log likelihood = -28257.299  
+Iteration 2:   log likelihood = -27957.176  
+Iteration 3:   log likelihood = -27953.117  
+Iteration 4:   log likelihood = -27953.116  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -17781.984
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -17781.984  
+Iteration 1:   log likelihood = -16914.226  
+Iteration 2:   log likelihood = -16652.708  
+Iteration 3:   log likelihood = -16598.529  
+Iteration 4:   log likelihood = -16595.589  
+Iteration 5:   log likelihood =   -16595.6  
+Iteration 6:   log likelihood = -16595.602  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(21)     =    1919.59
+Log likelihood = -16595.602                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+       Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+       WorryJob_L1c |   .0372584   .0060204     6.19   0.000     .0254585    .0490583
+        pm_WorryJob |   .0729694   .0302752     2.41   0.016     .0136311    .1323077
+      ArrestEver_L1 |  -.0483911   .0478664    -1.01   0.312    -.1422076    .0454254
+                    |
+     GraduatedHS_L1 |
+High school degree  |  -.5770508   .0822745    -7.01   0.000    -.7383059   -.4157957
+               GED  |  -.0375116   .0756276    -0.50   0.620    -.1857389    .1107157
+                    |
+       EnrollNow_L1 |   .6314563    .027099    23.30   0.000     .5783433    .6845693
+    Relationship_L1 |   .0124768   .0317481     0.39   0.694    -.0497482    .0747019
+            Kids_L1 |   .3278655   .0367208     8.93   0.000     .2558941    .3998369
+UnemploymentComp_L1 |   .2277517   .0643322     3.54   0.000     .1016629    .3538405
+         Health_L1c |  -.0487144   .0128834    -3.78   0.000    -.0739654   -.0234634
+          AlcUse_L1 |   -.049323   .0252486    -1.95   0.051    -.0988094    .0001634
+       FINScale_L1c |  -.2299558   .0105635   -21.77   0.000    -.2506599   -.2092517
+       DISScale_L1c |  -.0453564   .0135954    -3.34   0.001    -.0720028   -.0187099
+           Crash_L1 |   .0058022   .0297619     0.19   0.845    -.0525301    .0641345
+        ForceOut_L1 |   .1865586     .04019     4.64   0.000     .1077876    .2653295
+          Risky_L1c |  -.0295657   .0198742    -1.49   0.137    -.0685184    .0093871
+            AGE_L1c |  -.0281721   .0068228    -4.13   0.000    -.0415445   -.0147998
+                Sex |  -.3723572   .0923802    -4.03   0.000    -.5534191   -.1912952
+                    |
+               Race |
+             Black  |  -.3743822    .098708    -3.79   0.000    -.5678462   -.1809181
+          Hispanic  |  -.1103274   .1800787    -0.61   0.540    -.4632752    .2426204
+             Other  |   .0377038   .2226611     0.17   0.866    -.3987039    .4741115
+                    |
+              _cons |   .1698058   .1683424     1.01   0.313    -.1601393     .499751
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   4.505308   .2230881                       4.08861    4.964473
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 22715.03     Prob >= chibar2 = 0.0000
+
+. 
+. **Jail
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52647.229  
+Iteration 1:   log likelihood = -30495.571  
+Iteration 2:   log likelihood = -30313.906  
+Iteration 3:   log likelihood = -30312.938  
+Iteration 4:   log likelihood = -30312.938  
+
+Refining starting values:
+
+Grid node 0:   log likelihood =  -18816.91
+
+Fitting full model:
+
+Iteration 0:   log likelihood =  -18816.91  
+Iteration 1:   log likelihood = -17976.208  
+Iteration 2:   log likelihood = -17649.675  
+Iteration 3:   log likelihood = -17622.338  
+Iteration 4:   log likelihood = -17621.488  
+Iteration 5:   log likelihood = -17621.489  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(2)      =      42.71
+Log likelihood = -17621.489                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------
+ Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ WorryJob_L1c |   .0334636   .0057973     5.77   0.000     .0221011     .044826
+  pm_WorryJob |    .092792   .0304437     3.05   0.002     .0331234    .1524605
+        _cons |  -.3416488   .1239348    -2.76   0.006    -.5845566    -.098741
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   4.825924   .2375074                      4.382165    5.314621
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25382.90     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total JailEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52663.218  
+Iteration 1:   log likelihood = -30496.632  
+Iteration 2:   log likelihood = -30313.912  
+Iteration 3:   log likelihood =  -30312.95  
+Iteration 4:   log likelihood =  -30312.95  
+
+Refining starting values:
+
+Grid node 0:   log likelihood =  -18820.57
+
+Fitting full model:
+
+Iteration 0:   log likelihood =  -18820.57  
+Iteration 1:   log likelihood = -17981.744  
+Iteration 2:   log likelihood = -17655.764  
+Iteration 3:   log likelihood = -17628.532  
+Iteration 4:   log likelihood = -17627.692  
+Iteration 5:   log likelihood = -17627.693  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =      29.48
+Log likelihood = -17627.693                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------
+ Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+  JailEver_L1 |  -.3575917   .0658579    -5.43   0.000    -.4866709   -.2285125
+        _cons |    .030371   .0523316     0.58   0.562     -.072197     .132939
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   4.826075   .2375484                      4.382241    5.314859
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25370.51     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob JailEver_L1 if sample == 1 || ParticipantID: // mu
+> ltivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52507.757  
+Iteration 1:   log likelihood = -30424.637  
+Iteration 2:   log likelihood =  -30237.16  
+Iteration 3:   log likelihood = -30236.071  
+Iteration 4:   log likelihood = -30236.071  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -18792.565
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -18792.565  
+Iteration 1:   log likelihood = -17956.936  
+Iteration 2:   log likelihood = -17633.651  
+Iteration 3:   log likelihood = -17606.924  
+Iteration 4:   log likelihood = -17606.128  
+Iteration 5:   log likelihood = -17606.129  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(3)      =      74.08
+Log likelihood = -17606.129                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------
+ Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ WorryJob_L1c |   .0340473   .0058042     5.87   0.000     .0226714    .0454233
+  pm_WorryJob |   .0976139   .0304085     3.21   0.001     .0380143    .1572134
+  JailEver_L1 |  -.3696349    .065892    -5.61   0.000    -.4987808   -.2404891
+        _cons |  -.3266835   .1237726    -2.64   0.008    -.5692733   -.0840937
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   4.797356   .2361689                      4.356103    5.283306
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25259.88     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob JailEver_L1 $l1controlpmc $l2control  if sample ==
+>  1 || ParticipantID: // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -46792.584  
+Iteration 1:   log likelihood = -28285.617  
+Iteration 2:   log likelihood = -27986.786  
+Iteration 3:   log likelihood = -27982.784  
+Iteration 4:   log likelihood = -27982.783  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -17784.999
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -17784.999  
+Iteration 1:   log likelihood = -16914.138  
+Iteration 2:   log likelihood = -16652.041  
+Iteration 3:   log likelihood = -16597.793  
+Iteration 4:   log likelihood =  -16594.71  
+Iteration 5:   log likelihood = -16594.722  
+Iteration 6:   log likelihood = -16594.723  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(21)     =    1921.29
+Log likelihood = -16594.723                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+       Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+       WorryJob_L1c |   .0376269   .0060199     6.25   0.000     .0258282    .0494256
+        pm_WorryJob |   .0734411   .0302727     2.43   0.015     .0141077    .1327744
+        JailEver_L1 |   -.114021   .0679095    -1.68   0.093    -.2471211    .0190792
+                    |
+     GraduatedHS_L1 |
+High school degree  |  -.5798444   .0822733    -7.05   0.000    -.7410971   -.4185917
+               GED  |  -.0340146   .0756254    -0.45   0.653    -.1822376    .1142085
+                    |
+       EnrollNow_L1 |   .6312346    .027101    23.29   0.000     .5781176    .6843516
+    Relationship_L1 |   .0141706   .0317299     0.45   0.655    -.0480188    .0763601
+            Kids_L1 |   .3280388   .0367201     8.93   0.000     .2560686    .4000089
+UnemploymentComp_L1 |   .2289487   .0643361     3.56   0.000     .1028522    .3550452
+         Health_L1c |  -.0498079   .0128906    -3.86   0.000     -.075073   -.0245428
+          AlcUse_L1 |  -.0508893   .0252798    -2.01   0.044    -.1004369   -.0013417
+       FINScale_L1c |   -.230183   .0105607   -21.80   0.000    -.2508816   -.2094844
+       DISScale_L1c |  -.0458922   .0135976    -3.38   0.001    -.0725429   -.0192415
+           Crash_L1 |   .0074897    .029785     0.25   0.801    -.0508878    .0658673
+        ForceOut_L1 |   .1876348   .0401933     4.67   0.000     .1088575    .2664121
+          Risky_L1c |  -.0283738   .0198628    -1.43   0.153    -.0673041    .0105565
+            AGE_L1c |  -.0280964   .0067816    -4.14   0.000    -.0413881   -.0148046
+                Sex |  -.3718339   .0921503    -4.04   0.000    -.5524453   -.1912226
+                    |
+               Race |
+             Black  |  -.3743724   .0986591    -3.79   0.000    -.5677406   -.1810042
+          Hispanic  |  -.1094587   .1800415    -0.61   0.543    -.4623335    .2434161
+             Other  |   .0445938   .2226908     0.20   0.841    -.3918722    .4810597
+                    |
+              _cons |   .1675932   .1681743     1.00   0.319    -.1620224    .4972087
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   4.504598   .2228891                      4.088258    4.963337
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 22776.12     Prob >= chibar2 = 0.0000
+
+. 
+. **Probation
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52647.229  
+Iteration 1:   log likelihood = -30495.571  
+Iteration 2:   log likelihood = -30313.906  
+Iteration 3:   log likelihood = -30312.938  
+Iteration 4:   log likelihood = -30312.938  
+
+Refining starting values:
+
+Grid node 0:   log likelihood =  -18816.91
+
+Fitting full model:
+
+Iteration 0:   log likelihood =  -18816.91  
+Iteration 1:   log likelihood = -17976.208  
+Iteration 2:   log likelihood = -17649.675  
+Iteration 3:   log likelihood = -17622.338  
+Iteration 4:   log likelihood = -17621.488  
+Iteration 5:   log likelihood = -17621.489  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(2)      =      42.71
+Log likelihood = -17621.489                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------
+ Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ WorryJob_L1c |   .0334636   .0057973     5.77   0.000     .0221011     .044826
+  pm_WorryJob |    .092792   .0304437     3.05   0.002     .0331234    .1524605
+        _cons |  -.3416488   .1239348    -2.76   0.006    -.5845566    -.098741
+--------------+----------------------------------------------------------------
+ParticipantID |
+    var(_cons)|   4.825924   .2375074                      4.382165    5.314621
+-------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25382.90     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total ProbationEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52475.397  
+Iteration 1:   log likelihood = -30455.678  
+Iteration 2:   log likelihood = -30272.402  
+Iteration 3:   log likelihood = -30271.461  
+Iteration 4:   log likelihood = -30271.461  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -18816.047
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -18816.047  
+Iteration 1:   log likelihood = -17979.108  
+Iteration 2:   log likelihood = -17653.445  
+Iteration 3:   log likelihood =  -17626.28  
+Iteration 4:   log likelihood = -17625.448  
+Iteration 5:   log likelihood = -17625.449  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =      34.12
+Log likelihood = -17625.449                     Prob > chi2       =     0.0000
+----------------------------------------------------------------------------------
+    Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+ProbationEver_L1 |    -.35997   .0616299    -5.84   0.000    -.4807623   -.2391777
+           _cons |   .0387091   .0524388     0.74   0.460    -.0640691    .1414873
+-----------------+----------------------------------------------------------------
+ParticipantID    |
+       var(_cons)|    4.82868   .2376645                      4.384629    5.317702
+----------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25292.02     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob ProbationEver_L1 if sample == 1 || ParticipantID: 
+> // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -52301.143  
+Iteration 1:   log likelihood = -30381.585  
+Iteration 2:   log likelihood = -30193.835  
+Iteration 3:   log likelihood = -30192.784  
+Iteration 4:   log likelihood = -30192.784  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -18788.182
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -18788.182  
+Iteration 1:   log likelihood = -17954.398  
+Iteration 2:   log likelihood = -17631.458  
+Iteration 3:   log likelihood = -17604.807  
+Iteration 4:   log likelihood =  -17604.02  
+Iteration 5:   log likelihood = -17604.021  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(3)      =      78.38
+Log likelihood = -17604.021                     Prob > chi2       =     0.0000
+----------------------------------------------------------------------------------
+    Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+    WorryJob_L1c |   .0338279    .005799     5.83   0.000      .022462    .0451938
+     pm_WorryJob |    .098264   .0304179     3.23   0.001      .038646    .1578821
+ProbationEver_L1 |  -.3693474    .061718    -5.98   0.000    -.4903125   -.2483823
+           _cons |  -.3206673   .1238003    -2.59   0.010    -.5633114   -.0780232
+-----------------+----------------------------------------------------------------
+ParticipantID    |
+       var(_cons)|   4.799599   .2362639                      4.358168    5.285743
+----------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 25177.53     Prob >= chibar2 = 0.0000
+
+. mepoisson Discgd_Total WorryJob_L1c pm_WorryJob ProbationEver_L1 $l1controlpmc $l2control  if samp
+> le == 1 || ParticipantID: // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -46723.328  
+Iteration 1:   log likelihood = -28276.683  
+Iteration 2:   log likelihood = -27978.238  
+Iteration 3:   log likelihood = -27974.255  
+Iteration 4:   log likelihood = -27974.255  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -17782.606
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -17782.606  
+Iteration 1:   log likelihood = -16911.519  
+Iteration 2:   log likelihood = -16649.475  
+Iteration 3:   log likelihood = -16595.362  
+Iteration 4:   log likelihood = -16592.342  
+Iteration 5:   log likelihood = -16592.354  
+Iteration 6:   log likelihood = -16592.355  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(21)     =    1925.64
+Log likelihood = -16592.355                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+       Discgd_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+       WorryJob_L1c |   .0374834    .006018     6.23   0.000     .0256883    .0492785
+        pm_WorryJob |   .0744982   .0302771     2.46   0.014     .0151561    .1338403
+   ProbationEver_L1 |   -.178745   .0645673    -2.77   0.006    -.3052945   -.0521954
+                    |
+     GraduatedHS_L1 |
+High school degree  |  -.5888803   .0823414    -7.15   0.000    -.7502664   -.4274942
+               GED  |  -.0292978   .0756178    -0.39   0.698     -.177506    .1189104
+                    |
+       EnrollNow_L1 |   .6319074   .0271007    23.32   0.000      .578791    .6850238
+    Relationship_L1 |   .0124111    .031726     0.39   0.696    -.0497706    .0745929
+            Kids_L1 |   .3320757   .0367525     9.04   0.000     .2600421    .4041092
+UnemploymentComp_L1 |   .2338639   .0642664     3.64   0.000     .1079041    .3598237
+         Health_L1c |  -.0486979   .0128739    -3.78   0.000    -.0739304   -.0234655
+          AlcUse_L1 |  -.0482632   .0252473    -1.91   0.056     -.097747    .0012206
+       FINScale_L1c |  -.2304767   .0105569   -21.83   0.000    -.2511678   -.2097857
+       DISScale_L1c |  -.0447035   .0135997    -3.29   0.001    -.0713583   -.0180486
+           Crash_L1 |   .0065906   .0297655     0.22   0.825    -.0517488    .0649299
+        ForceOut_L1 |   .1840744   .0401974     4.58   0.000     .1052889    .2628599
+          Risky_L1c |  -.0299414   .0198626    -1.51   0.132    -.0688713    .0089885
+            AGE_L1c |  -.0275137   .0067763    -4.06   0.000    -.0407951   -.0142323
+                Sex |  -.3637428   .0921973    -3.95   0.000    -.5444461   -.1830395
+                    |
+               Race |
+             Black  |   -.374028   .0986445    -3.79   0.000    -.5673678   -.1806883
+          Hispanic  |  -.1145679    .180084    -0.64   0.525     -.467526    .2383901
+             Other  |   .0405508   .2227032     0.18   0.856    -.3959395    .4770411
+                    |
+              _cons |   .1752043   .1681924     1.04   0.298    -.1544468    .5048553
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   4.505332   .2228236                      4.089105    4.963926
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 22763.80     Prob >= chibar2 = 0.0000
+
+. 
+. 
+. 
+. ****
+. **TIME SEARCHING FOR WORK
+. ****
+. 
+. **Arrest
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -46114.995  
+Iteration 1:   log likelihood = -21651.832  
+Iteration 2:   log likelihood = -21633.802  
+Iteration 3:   log likelihood =  -21633.79  
+Iteration 4:   log likelihood =  -21633.79  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14512.055
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14512.055  
+Iteration 1:   log likelihood = -13927.578  
+Iteration 2:   log likelihood = -13778.306  
+Iteration 3:   log likelihood = -13763.176  
+Iteration 4:   log likelihood = -13763.094  
+Iteration 5:   log likelihood = -13763.106  
+Iteration 6:   log likelihood = -13763.107  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(2)      =      50.91
+Log likelihood = -13763.107                     Prob > chi2       =     0.0000
+---------------------------------------------------------------------------------
+Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+   WorryJob_L1c |   .0177358   .0068763     2.58   0.010     .0042585    .0312131
+    pm_WorryJob |   .1787911   .0269115     6.64   0.000     .1260455    .2315367
+          _cons |   -.870623   .1111465    -7.83   0.000    -1.088466   -.6527799
+----------------+----------------------------------------------------------------
+ParticipantID   |
+      var(_cons)|   3.252495   .1598389                      2.953831    3.581357
+---------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15741.37     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total ArrestEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -45422.216  
+Iteration 1:   log likelihood = -21576.975  
+Iteration 2:   log likelihood = -21572.403  
+Iteration 3:   log likelihood = -21572.402  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14510.587
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14510.587  
+Iteration 1:   log likelihood = -13927.926  
+Iteration 2:   log likelihood = -13767.283  
+Iteration 3:   log likelihood = -13763.487  
+Iteration 4:   log likelihood = -13763.495  
+Iteration 5:   log likelihood = -13763.506  
+Iteration 6:   log likelihood = -13763.507  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =      46.35
+Log likelihood = -13763.507                     Prob > chi2       =     0.0000
+---------------------------------------------------------------------------------
+Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+  ArrestEver_L1 |   .2970435   .0436311     6.81   0.000     .2115281     .382559
+          _cons |  -.2796157   .0470736    -5.94   0.000    -.3718783   -.1873531
+----------------+----------------------------------------------------------------
+ParticipantID   |
+      var(_cons)|   3.259073   .1605767                      2.959067    3.589495
+---------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15617.79     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob ArrestEver_L1 if sample == 1 || ParticipantID: 
+> // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -44710.374  
+Iteration 1:   log likelihood = -21362.665  
+Iteration 2:   log likelihood = -21342.631  
+Iteration 3:   log likelihood = -21342.613  
+Iteration 4:   log likelihood = -21342.613  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14462.932
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14462.932  
+Iteration 1:   log likelihood = -13897.218  
+Iteration 2:   log likelihood = -13755.533  
+Iteration 3:   log likelihood = -13742.079  
+Iteration 4:   log likelihood = -13742.044  
+Iteration 5:   log likelihood = -13742.053  
+Iteration 6:   log likelihood = -13742.054  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(3)      =      93.43
+Log likelihood = -13742.054                     Prob > chi2       =     0.0000
+---------------------------------------------------------------------------------
+Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+   WorryJob_L1c |   .0143117   .0068965     2.08   0.038     .0007948    .0278287
+    pm_WorryJob |   .1729103   .0267129     6.47   0.000     .1205541    .2252665
+  ArrestEver_L1 |     .28352   .0436946     6.49   0.000       .19788    .3691599
+          _cons |   -.907453   .1104688    -8.21   0.000    -1.123968   -.6909381
+----------------+----------------------------------------------------------------
+ParticipantID   |
+      var(_cons)|   3.178693   .1567477                      2.885853     3.50125
+---------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15201.12     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob ArrestEver_L1 $l1controlpmc $l2control  if samp
+> le == 1 || ParticipantID: // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -38954.085  
+Iteration 1:   log likelihood = -19991.743  
+Iteration 2:   log likelihood = -19920.551  
+Iteration 3:   log likelihood = -19920.079  
+Iteration 4:   log likelihood = -19920.079  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14226.858
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14226.858  
+Iteration 1:   log likelihood = -13681.121  
+Iteration 2:   log likelihood = -13568.244  
+Iteration 3:   log likelihood = -13558.965  
+Iteration 4:   log likelihood =  -13558.81  
+Iteration 5:   log likelihood = -13558.822  
+Iteration 6:   log likelihood = -13558.823  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(21)     =     471.99
+Log likelihood = -13558.823                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+    Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+       WorryJob_L1c |   .0131394   .0070702     1.86   0.063    -.0007179    .0269967
+        pm_WorryJob |   .1740023   .0258713     6.73   0.000     .1232955     .224709
+      ArrestEver_L1 |   .2664382   .0459589     5.80   0.000     .1763604     .356516
+                    |
+     GraduatedHS_L1 |
+High school degree  |   -.185666   .0747862    -2.48   0.013    -.3322443   -.0390878
+               GED  |    .116985    .076714     1.52   0.127    -.0333717    .2673417
+                    |
+       EnrollNow_L1 |  -.0017842   .0301778    -0.06   0.953    -.0609315    .0573632
+    Relationship_L1 |  -.1559015   .0350367    -4.45   0.000    -.2245722   -.0872308
+            Kids_L1 |   .1041131    .038754     2.69   0.007     .0281568    .1800695
+UnemploymentComp_L1 |   .1485682   .0527783     2.81   0.005     .0451247    .2520117
+         Health_L1c |   .0000242   .0152871     0.00   0.999     -.029938    .0299864
+          AlcUse_L1 |  -.0001407   .0293713    -0.00   0.996    -.0577073    .0574259
+       FINScale_L1c |   -.107107   .0139828    -7.66   0.000    -.1345128   -.0797012
+       DISScale_L1c |  -.0375217   .0151584    -2.48   0.013    -.0672316   -.0078118
+           Crash_L1 |   .3716869   .0365055    10.18   0.000     .3001374    .4432363
+        ForceOut_L1 |   .0073355   .0490314     0.15   0.881    -.0887642    .1034352
+          Risky_L1c |  -.0256568   .0224038    -1.15   0.252    -.0695675    .0182538
+            AGE_L1c |  -.0408345   .0082535    -4.95   0.000    -.0570112   -.0246579
+                Sex |  -.0691935   .0791628    -0.87   0.382    -.2243497    .0859628
+                    |
+               Race |
+             Black  |   .8837314   .0846438    10.44   0.000     .7178327     1.04963
+          Hispanic  |   .0317962   .1602494     0.20   0.843     -.282287    .3458793
+             Other  |    .255318   .1933541     1.32   0.187    -.1236491    .6342852
+                    |
+              _cons |    -1.3924   .1520606    -9.16   0.000    -1.690434   -1.094367
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   2.829864   .1412239                      2.566176    3.120647
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 12722.51     Prob >= chibar2 = 0.0000
+
+. 
+. **Jail
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -46114.995  
+Iteration 1:   log likelihood = -21651.832  
+Iteration 2:   log likelihood = -21633.802  
+Iteration 3:   log likelihood =  -21633.79  
+Iteration 4:   log likelihood =  -21633.79  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14512.055
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14512.055  
+Iteration 1:   log likelihood = -13927.578  
+Iteration 2:   log likelihood = -13778.306  
+Iteration 3:   log likelihood = -13763.176  
+Iteration 4:   log likelihood = -13763.094  
+Iteration 5:   log likelihood = -13763.106  
+Iteration 6:   log likelihood = -13763.107  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(2)      =      50.91
+Log likelihood = -13763.107                     Prob > chi2       =     0.0000
+---------------------------------------------------------------------------------
+Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+   WorryJob_L1c |   .0177358   .0068763     2.58   0.010     .0042585    .0312131
+    pm_WorryJob |   .1787911   .0269115     6.64   0.000     .1260455    .2315367
+          _cons |   -.870623   .1111465    -7.83   0.000    -1.088466   -.6527799
+----------------+----------------------------------------------------------------
+ParticipantID   |
+      var(_cons)|   3.252495   .1598389                      2.953831    3.581357
+---------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15741.37     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total JailEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood =  -45881.76  
+Iteration 1:   log likelihood = -21644.056  
+Iteration 2:   log likelihood = -21634.167  
+Iteration 3:   log likelihood = -21634.149  
+Iteration 4:   log likelihood = -21634.149  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14488.552
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14488.552  
+Iteration 1:   log likelihood =  -13904.84  
+Iteration 2:   log likelihood = -13755.233  
+Iteration 3:   log likelihood = -13739.953  
+Iteration 4:   log likelihood = -13739.865  
+Iteration 5:   log likelihood = -13739.877  
+Iteration 6:   log likelihood = -13739.878  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =      91.40
+Log likelihood = -13739.878                     Prob > chi2       =     0.0000
+---------------------------------------------------------------------------------
+Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+    JailEver_L1 |   .5571984   .0582821     9.56   0.000     .4429676    .6714291
+          _cons |  -.2605288   .0463736    -5.62   0.000    -.3514194   -.1696383
+----------------+----------------------------------------------------------------
+ParticipantID   |
+      var(_cons)|   3.257905   .1603071                      2.958384    3.587751
+---------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15788.54     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob JailEver_L1 if sample == 1 || ParticipantID: //
+>  multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -45121.293  
+Iteration 1:   log likelihood = -21429.025  
+Iteration 2:   log likelihood = -21407.419  
+Iteration 3:   log likelihood = -21407.387  
+Iteration 4:   log likelihood = -21407.387  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14443.077
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14443.077  
+Iteration 1:   log likelihood = -13875.485  
+Iteration 2:   log likelihood = -13733.115  
+Iteration 3:   log likelihood = -13719.549  
+Iteration 4:   log likelihood = -13719.514  
+Iteration 5:   log likelihood = -13719.523  
+Iteration 6:   log likelihood = -13719.523  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(3)      =     136.59
+Log likelihood = -13719.523                     Prob > chi2       =     0.0000
+---------------------------------------------------------------------------------
+Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+   WorryJob_L1c |    .012331    .006894     1.79   0.074    -.0011811     .025843
+    pm_WorryJob |   .1704727   .0267156     6.38   0.000     .1181111    .2228343
+    JailEver_L1 |     .53808   .0582955     9.23   0.000      .423823     .652337
+          _cons |  -.8809149   .1103056    -7.99   0.000     -1.09711     -.66472
+----------------+----------------------------------------------------------------
+ParticipantID   |
+      var(_cons)|   3.179503   .1565782                      2.886961    3.501689
+---------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15375.73     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob JailEver_L1 $l1controlpmc $l2control  if sample
+>  == 1 || ParticipantID: // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -38958.243  
+Iteration 1:   log likelihood = -19999.779  
+Iteration 2:   log likelihood = -19931.533  
+Iteration 3:   log likelihood =   -19931.1  
+Iteration 4:   log likelihood =   -19931.1  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14221.935
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14221.935  
+Iteration 1:   log likelihood = -13666.457  
+Iteration 2:   log likelihood = -13552.228  
+Iteration 3:   log likelihood = -13542.634  
+Iteration 4:   log likelihood = -13542.467  
+Iteration 5:   log likelihood = -13542.479  
+Iteration 6:   log likelihood =  -13542.48  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(21)     =     502.96
+Log likelihood = -13542.48                      Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+    Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+       WorryJob_L1c |    .012829   .0070577     1.82   0.069    -.0010039    .0266618
+        pm_WorryJob |   .1718485   .0258828     6.64   0.000     .1211191    .2225779
+        JailEver_L1 |   .4867384   .0602505     8.08   0.000     .3686495    .6048273
+                    |
+     GraduatedHS_L1 |
+High school degree  |  -.1969804   .0747161    -2.64   0.008    -.3434214   -.0505395
+               GED  |   .1106526   .0770897     1.44   0.151    -.0404404    .2617457
+                    |
+       EnrollNow_L1 |   .0016102   .0302012     0.05   0.957    -.0575831    .0608036
+    Relationship_L1 |  -.1573144   .0350643    -4.49   0.000    -.2260392   -.0885897
+            Kids_L1 |   .0917794    .038805     2.37   0.018      .015723    .1678357
+UnemploymentComp_L1 |   .1515241   .0527965     2.87   0.004     .0480449    .2550033
+         Health_L1c |     .00291   .0152711     0.19   0.849    -.0270208    .0328409
+          AlcUse_L1 |   .0033915   .0293986     0.12   0.908    -.0542286    .0610116
+       FINScale_L1c |  -.1012717   .0139677    -7.25   0.000    -.1286478   -.0738956
+       DISScale_L1c |  -.0464777   .0151823    -3.06   0.002    -.0762346   -.0167208
+           Crash_L1 |   .3540109   .0365331     9.69   0.000     .2824074    .4256143
+        ForceOut_L1 |   .0218045   .0490574     0.44   0.657    -.0743462    .1179551
+          Risky_L1c |  -.0271935   .0223883    -1.21   0.225    -.0710736    .0166867
+            AGE_L1c |  -.0401824   .0081742    -4.92   0.000    -.0562036   -.0241613
+                Sex |  -.0669937   .0789402    -0.85   0.396    -.2217136    .0877262
+                    |
+               Race |
+             Black  |   .8849902   .0846332    10.46   0.000     .7191122    1.050868
+          Hispanic  |   .0222166   .1603499     0.14   0.890    -.2920634    .3364966
+             Other  |     .22353   .1936836     1.15   0.248    -.1560828    .6031428
+                    |
+              _cons |  -1.343197   .1518365    -8.85   0.000    -1.640791   -1.045603
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   2.832945   .1412679                      2.569165    3.123807
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 12777.24     Prob >= chibar2 = 0.0000
+
+. 
+. **Probation
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -46114.995  
+Iteration 1:   log likelihood = -21651.832  
+Iteration 2:   log likelihood = -21633.802  
+Iteration 3:   log likelihood =  -21633.79  
+Iteration 4:   log likelihood =  -21633.79  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14512.055
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14512.055  
+Iteration 1:   log likelihood = -13927.578  
+Iteration 2:   log likelihood = -13778.306  
+Iteration 3:   log likelihood = -13763.176  
+Iteration 4:   log likelihood = -13763.094  
+Iteration 5:   log likelihood = -13763.106  
+Iteration 6:   log likelihood = -13763.107  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(2)      =      50.91
+Log likelihood = -13763.107                     Prob > chi2       =     0.0000
+---------------------------------------------------------------------------------
+Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+   WorryJob_L1c |   .0177358   .0068763     2.58   0.010     .0042585    .0312131
+    pm_WorryJob |   .1787911   .0269115     6.64   0.000     .1260455    .2315367
+          _cons |   -.870623   .1111465    -7.83   0.000    -1.088466   -.6527799
+----------------+----------------------------------------------------------------
+ParticipantID   |
+      var(_cons)|   3.252495   .1598389                      2.953831    3.581357
+---------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15741.37     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total ProbationEver_L1 if sample == 1 || ParticipantID: // bivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -46189.944  
+Iteration 1:   log likelihood =  -21724.18  
+Iteration 2:   log likelihood = -21718.592  
+Iteration 3:   log likelihood = -21718.589  
+Iteration 4:   log likelihood = -21718.589  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14517.694
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14517.694  
+Iteration 1:   log likelihood = -13928.118  
+Iteration 2:   log likelihood = -13776.211  
+Iteration 3:   log likelihood = -13760.389  
+Iteration 4:   log likelihood = -13760.281  
+Iteration 5:   log likelihood = -13760.294  
+Iteration 6:   log likelihood = -13760.295  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(1)      =      52.51
+Log likelihood = -13760.295                     Prob > chi2       =     0.0000
+----------------------------------------------------------------------------------
+ Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+ProbationEver_L1 |   .4036193   .0556978     7.25   0.000     .2944536     .512785
+           _cons |  -.2584485    .046592    -5.55   0.000    -.3497671     -.16713
+-----------------+----------------------------------------------------------------
+ParticipantID    |
+       var(_cons)|   3.279121   .1612453                      2.977838    3.610887
+----------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15916.59     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob ProbationEver_L1 if sample == 1 || ParticipantI
+> D: // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -45436.646  
+Iteration 1:   log likelihood = -21503.375  
+Iteration 2:   log likelihood =  -21483.03  
+Iteration 3:   log likelihood = -21483.011  
+Iteration 4:   log likelihood = -21483.011  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14470.079
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14470.079  
+Iteration 1:   log likelihood = -13897.302  
+Iteration 2:   log likelihood = -13752.876  
+Iteration 3:   log likelihood = -13738.848  
+Iteration 4:   log likelihood = -13738.801  
+Iteration 5:   log likelihood =  -13738.81  
+Iteration 6:   log likelihood = -13738.811  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(3)      =      99.52
+Log likelihood = -13738.811                     Prob > chi2       =     0.0000
+----------------------------------------------------------------------------------
+ Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+    WorryJob_L1c |   .0153911    .006887     2.23   0.025     .0018928    .0288894
+     pm_WorryJob |   .1719575   .0267766     6.42   0.000     .1194764    .2244386
+ProbationEver_L1 |   .3869845   .0556506     6.95   0.000     .2779114    .4960576
+           _cons |  -.8842037   .1105614    -8.00   0.000      -1.1009   -.6675074
+-----------------+----------------------------------------------------------------
+ParticipantID    |
+       var(_cons)|   3.199232   .1574408                      2.905068    3.523182
+----------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 15488.40     Prob >= chibar2 = 0.0000
+
+. mepoisson Searching_Total WorryJob_L1c pm_WorryJob ProbationEver_L1 $l1controlpmc $l2control  if s
+> ample == 1 || ParticipantID: // multivariate
+
+Fitting fixed-effects model:
+
+Iteration 0:   log likelihood = -39026.004  
+Iteration 1:   log likelihood = -20013.505  
+Iteration 2:   log likelihood = -19943.955  
+Iteration 3:   log likelihood = -19943.507  
+Iteration 4:   log likelihood = -19943.507  
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -14233.606
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -14233.606  
+Iteration 1:   log likelihood = -13683.519  
+Iteration 2:   log likelihood = -13569.588  
+Iteration 3:   log likelihood =  -13560.05  
+Iteration 4:   log likelihood = -13559.883  
+Iteration 5:   log likelihood = -13559.896  
+Iteration 6:   log likelihood = -13559.896  
+
+Mixed-effects Poisson regression                Number of obs     =      5,394
+Group variable: ParticipantID                   Number of groups  =      2,248
+
+                                                Obs per group:
+                                                              min =          1
+                                                              avg =        2.4
+                                                              max =          4
+
+Integration method: mvaghermite                 Integration pts.  =          7
+
+                                                Wald chi2(21)     =     469.70
+Log likelihood = -13559.896                     Prob > chi2       =     0.0000
+-------------------------------------------------------------------------------------
+    Searching_Total | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+       WorryJob_L1c |   .0148389   .0070567     2.10   0.035      .001008    .0286699
+        pm_WorryJob |   .1740645   .0258845     6.72   0.000     .1233318    .2247973
+   ProbationEver_L1 |   .3221366    .057557     5.60   0.000     .2093269    .4349462
+                    |
+     GraduatedHS_L1 |
+High school degree  |  -.1944328   .0749755    -2.59   0.010    -.3413821   -.0474835
+               GED  |   .0793114   .0773849     1.02   0.305    -.0723602    .2309829
+                    |
+       EnrollNow_L1 |   .0040199   .0302075     0.13   0.894    -.0551857    .0632255
+    Relationship_L1 |  -.1436863   .0350991    -4.09   0.000    -.2124793   -.0748933
+            Kids_L1 |   .1076076   .0387409     2.78   0.005     .0316769    .1835383
+UnemploymentComp_L1 |   .1423726   .0527724     2.70   0.007     .0389405    .2458046
+         Health_L1c |   .0019546     .01529     0.13   0.898    -.0280132    .0319225
+          AlcUse_L1 |  -.0108992   .0293729    -0.37   0.711    -.0684689    .0466705
+       FINScale_L1c |  -.1040367   .0139669    -7.45   0.000    -.1314113   -.0766621
+       DISScale_L1c |  -.0380666   .0151642    -2.51   0.012    -.0677879   -.0083453
+           Crash_L1 |   .3651713   .0364956    10.01   0.000     .2936413    .4367013
+        ForceOut_L1 |   .0110528   .0490532     0.23   0.822    -.0850897    .1071954
+          Risky_L1c |  -.0229427   .0224122    -1.02   0.306    -.0668699    .0209844
+            AGE_L1c |  -.0376147    .008172    -4.60   0.000    -.0536315    -.021598
+                Sex |  -.0526952   .0789462    -0.67   0.504     -.207427    .1020366
+                    |
+               Race |
+             Black  |   .8969966   .0846268    10.60   0.000     .7311311    1.062862
+          Hispanic  |   .0237353   .1603104     0.15   0.882    -.2904672    .3379379
+             Other  |   .2565005   .1934022     1.33   0.185    -.1225608    .6355619
+                    |
+              _cons |  -1.363703   .1521997    -8.96   0.000    -1.662009   -1.065397
+--------------------+----------------------------------------------------------------
+ParticipantID       |
+          var(_cons)|   2.833681   .1414376                      2.569597    3.124907
+-------------------------------------------------------------------------------------
+LR test vs. Poisson model: chibar2(01) = 12767.22     Prob >= chibar2 = 0.0000
+
+. 
+. 
+. 
+. ****
+. **JOB PLACEMENT IN SECONDARY MARKET
+. ****
+. 
+. *Arrest
+. logit Secondary ArrestEver_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -572.89347  
+Iteration 2:   log pseudolikelihood = -572.89274  
+Iteration 3:   log pseudolikelihood = -572.89274  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(1)  =  18.99
+                                                        Prob > chi2   = 0.0000
+Log pseudolikelihood = -572.89274                       Pseudo R2     = 0.0168
+
+                         (Std. err. adjusted for 707 clusters in ParticipantID)
+-------------------------------------------------------------------------------
+              |               Robust
+    Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ArrestEver_L1 |   2.001509   .3186869     4.36   0.000     1.464963    2.734568
+        _cons |   .7549858    .062485    -3.40   0.001     .6419344    .8879467
+-------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -581.36262  
+Iteration 2:   log pseudolikelihood =  -581.3626  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(1)  =   2.69
+                                                        Prob > chi2   = 0.1012
+Log pseudolikelihood = -581.3626                        Pseudo R2     = 0.0023
+
+                        (Std. err. adjusted for 707 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+   Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ WorryJob_L1 |   1.056329   .0353165     1.64   0.101     .9893292    1.127866
+       _cons |   .7339134   .1077817    -2.11   0.035     .5503492    .9787038
+------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary ArrestEver_L1 WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(Particip
+> antID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -572.26078  
+Iteration 2:   log pseudolikelihood = -572.25942  
+Iteration 3:   log pseudolikelihood = -572.25942  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(2)  =  20.06
+                                                        Prob > chi2   = 0.0000
+Log pseudolikelihood = -572.25942                       Pseudo R2     = 0.0179
+
+                         (Std. err. adjusted for 707 clusters in ParticipantID)
+-------------------------------------------------------------------------------
+              |               Robust
+    Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ArrestEver_L1 |   1.962178   .3150737     4.20   0.000     1.432379    2.687935
+  WorryJob_L1 |    1.03944   .0353988     1.14   0.256     .9723242    1.111188
+        _cons |   .6525273   .0980473    -2.84   0.004     .4860702    .8759885
+-------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary ArrestEver_L1 WorryJob_L1 ///
+>         $l1control $l2control if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -526.78555  
+Iteration 2:   log pseudolikelihood = -526.73673  
+Iteration 3:   log pseudolikelihood = -526.73673  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(20) =  84.83
+                                                        Prob > chi2   = 0.0000
+Log pseudolikelihood = -526.73673                       Pseudo R2     = 0.0960
+
+                               (Std. err. adjusted for 707 clusters in ParticipantID)
+-------------------------------------------------------------------------------------
+                    |               Robust
+          Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+      ArrestEver_L1 |   1.487723   .2828688     2.09   0.037     1.024893    2.159562
+        WorryJob_L1 |   1.025303   .0395397     0.65   0.517     .9506634    1.105804
+                    |
+     GraduatedHS_L1 |
+High school degree  |   .4025523   .1347998    -2.72   0.007     .2088269    .7759936
+               GED  |   .5896896   .2397024    -1.30   0.194     .2658393     1.30806
+                    |
+       EnrollNow_L1 |   .6753727   .1140268    -2.32   0.020     .4850992    .9402783
+    Relationship_L1 |   .6399643   .1399058    -2.04   0.041     .4169369    .9822931
+            Kids_L1 |   1.157056   .2454237     0.69   0.492     .7634939    1.753489
+UnemploymentComp_L1 |   .7485789   .2682073    -0.81   0.419     .3709042    1.510822
+          Health_L1 |   1.138946   .0981054     1.51   0.131     .9620182    1.348414
+          AlcUse_L1 |   .7487271   .1279549    -1.69   0.090     .5356193    1.046625
+        FINScale_L1 |   .9970169   .0704897    -0.04   0.966     .8680047    1.145204
+        DISScale_L1 |     1.0024   .0765985     0.03   0.975      .862971    1.164356
+           Crash_L1 |   1.260015   .2236594     1.30   0.193     .8897807    1.784303
+        ForceOut_L1 |   1.149005   .4044024     0.39   0.693     .5764133    2.290392
+           Risky_L1 |   1.111646   .1269501     0.93   0.354     .8887085    1.390509
+             AGE_L1 |   .8287563   .0368398    -4.23   0.000     .7596077    .9041997
+                Sex |   1.637873   .2683496     3.01   0.003     1.188007     2.25809
+                    |
+               Race |
+             Black  |   1.544762   .2630375     2.55   0.011     1.106423    2.156759
+          Hispanic  |   .8429362   .3460025    -0.42   0.677     .3770505    1.884473
+             Other  |    .768489   .2958359    -0.68   0.494     .3613774    1.634234
+                    |
+              _cons |   40.75406   37.30933     4.05   0.000      6.77512    245.1459
+-------------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. 
+. *Jail
+. logit Secondary JailEver_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -576.03131  
+Iteration 2:   log pseudolikelihood = -576.02798  
+Iteration 3:   log pseudolikelihood = -576.02798  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(1)  =  12.57
+                                                        Prob > chi2   = 0.0004
+Log pseudolikelihood = -576.02798                       Pseudo R2     = 0.0114
+
+                        (Std. err. adjusted for 707 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+   Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ JailEver_L1 |   2.231204   .5051007     3.55   0.000     1.431674    3.477239
+       _cons |   .8304668   .0622533    -2.48   0.013     .7169926       .9619
+------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -581.36262  
+Iteration 2:   log pseudolikelihood =  -581.3626  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(1)  =   2.69
+                                                        Prob > chi2   = 0.1012
+Log pseudolikelihood = -581.3626                        Pseudo R2     = 0.0023
+
+                        (Std. err. adjusted for 707 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+   Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ WorryJob_L1 |   1.056329   .0353165     1.64   0.101     .9893292    1.127866
+       _cons |   .7339134   .1077817    -2.11   0.035     .5503492    .9787038
+------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary JailEver_L1 WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(Participan
+> tID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -575.21122  
+Iteration 2:   log pseudolikelihood = -575.20711  
+Iteration 3:   log pseudolikelihood = -575.20711  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(2)  =  13.73
+                                                        Prob > chi2   = 0.0010
+Log pseudolikelihood = -575.20711                       Pseudo R2     = 0.0128
+
+                        (Std. err. adjusted for 707 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+   Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ JailEver_L1 |   2.173982   .4978109     3.39   0.001     1.387851    3.405407
+ WorryJob_L1 |   1.044783   .0356337     1.28   0.199     .9772255    1.117011
+       _cons |   .7018693     .10415    -2.39   0.017     .5247433    .9387839
+------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary JailEver_L1 WorryJob_L1 ///
+>         $l1control $l2control if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -526.31115  
+Iteration 2:   log pseudolikelihood = -526.25343  
+Iteration 3:   log pseudolikelihood = -526.25342  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(20) =  83.10
+                                                        Prob > chi2   = 0.0000
+Log pseudolikelihood = -526.25342                       Pseudo R2     = 0.0968
+
+                               (Std. err. adjusted for 707 clusters in ParticipantID)
+-------------------------------------------------------------------------------------
+                    |               Robust
+          Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+        JailEver_L1 |   1.818453   .5047218     2.15   0.031     1.055471    3.132982
+        WorryJob_L1 |   1.025879   .0394943     0.66   0.507     .9513198    1.106281
+                    |
+     GraduatedHS_L1 |
+High school degree  |   .3979488   .1339021    -2.74   0.006     .2057853    .7695558
+               GED  |   .6070635   .2499589    -1.21   0.225      .270864    1.360558
+                    |
+       EnrollNow_L1 |   .6670186   .1121973    -2.41   0.016      .479689    .9275046
+    Relationship_L1 |    .633535   .1401106    -2.06   0.039      .410697    .9772815
+            Kids_L1 |   1.177232   .2522155     0.76   0.446     .7735648    1.791543
+UnemploymentComp_L1 |   .7802599   .2824666    -0.69   0.493     .3837873    1.586309
+          Health_L1 |   1.145782   .0986026     1.58   0.114     .9679433    1.356294
+          AlcUse_L1 |   .7550379   .1294349    -1.64   0.101     .5395711    1.056547
+        FINScale_L1 |   1.001656   .0711445     0.02   0.981     .8714863    1.151269
+        DISScale_L1 |   .9903987   .0759125    -0.13   0.900     .8522495    1.150942
+           Crash_L1 |   1.272128   .2257335     1.36   0.175     .8984396    1.801245
+        ForceOut_L1 |   1.137163   .3960894     0.37   0.712     .5745625    2.250649
+           Risky_L1 |    1.11103   .1285708     0.91   0.363     .8855701    1.393891
+             AGE_L1 |   .8257786   .0371959    -4.25   0.000     .7560014    .9019961
+                Sex |   1.670698   .2741699     3.13   0.002     1.211188     2.30454
+                    |
+               Race |
+             Black  |   1.584786   .2688794     2.71   0.007     1.136458    2.209979
+          Hispanic  |   .8401938   .3430037    -0.43   0.670     .3774695    1.870152
+             Other  |   .7168276   .2805403    -0.85   0.395     .3328781    1.543633
+                    |
+              _cons |   44.59588   41.34232     4.10   0.000     7.247594    274.4073
+-------------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. 
+. *Probation
+. logit Secondary ProbationEver_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood =   -578.614  
+Iteration 2:   log pseudolikelihood = -578.61376  
+Iteration 3:   log pseudolikelihood = -578.61376  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(1)  =   7.81
+                                                        Prob > chi2   = 0.0052
+Log pseudolikelihood = -578.61376                       Pseudo R2     = 0.0070
+
+                            (Std. err. adjusted for 707 clusters in ParticipantID)
+----------------------------------------------------------------------------------
+                 |               Robust
+       Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+ProbationEver_L1 |   1.772835   .3632185     2.79   0.005     1.186518    2.648882
+           _cons |   .8401015   .0642802    -2.28   0.023     .7231065    .9760257
+----------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -581.36262  
+Iteration 2:   log pseudolikelihood =  -581.3626  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(1)  =   2.69
+                                                        Prob > chi2   = 0.1012
+Log pseudolikelihood = -581.3626                        Pseudo R2     = 0.0023
+
+                        (Std. err. adjusted for 707 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+   Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ WorryJob_L1 |   1.056329   .0353165     1.64   0.101     .9893292    1.127866
+       _cons |   .7339134   .1077817    -2.11   0.035     .5503492    .9787038
+------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary ProbationEver_L1 WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(Parti
+> cipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -577.63488  
+Iteration 2:   log pseudolikelihood = -577.63436  
+Iteration 3:   log pseudolikelihood = -577.63436  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(2)  =   9.59
+                                                        Prob > chi2   = 0.0083
+Log pseudolikelihood = -577.63436                       Pseudo R2     = 0.0087
+
+                            (Std. err. adjusted for 707 clusters in ParticipantID)
+----------------------------------------------------------------------------------
+                 |               Robust
+       Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+ProbationEver_L1 |   1.734638   .3588521     2.66   0.008     1.156424     2.60196
+     WorryJob_L1 |    1.04879   .0352601     1.42   0.157     .9819087    1.120226
+           _cons |   .6994808   .1035075    -2.42   0.016     .5233799    .9348341
+----------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. logit Secondary ProbationEver_L1 WorryJob_L1 ///
+>         $l1control $l2control if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID) or
+
+Iteration 0:   log pseudolikelihood = -582.67945  
+Iteration 1:   log pseudolikelihood = -528.57886  
+Iteration 2:   log pseudolikelihood = -528.53162  
+Iteration 3:   log pseudolikelihood = -528.53162  
+
+Logistic regression                                     Number of obs =    842
+                                                        Wald chi2(20) =  82.71
+                                                        Prob > chi2   = 0.0000
+Log pseudolikelihood = -528.53162                       Pseudo R2     = 0.0929
+
+                               (Std. err. adjusted for 707 clusters in ParticipantID)
+-------------------------------------------------------------------------------------
+                    |               Robust
+          Secondary | Odds ratio   std. err.      z    P>|z|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+   ProbationEver_L1 |   1.214585   .2971168     0.79   0.427      .751975    1.961789
+        WorryJob_L1 |   1.029368   .0394175     0.76   0.450     .9549393    1.109598
+                    |
+     GraduatedHS_L1 |
+High school degree  |   .3759471    .125371    -2.93   0.003     .1955545     .722746
+               GED  |   .5941491   .2417879    -1.28   0.201     .2676089    1.319138
+                    |
+       EnrollNow_L1 |   .6541251   .1100976    -2.52   0.012     .4703193    .9097644
+    Relationship_L1 |   .6532979   .1426794    -1.95   0.051     .4258043    1.002334
+            Kids_L1 |   1.182399   .2518914     0.79   0.432     .7788058    1.795143
+UnemploymentComp_L1 |   .7580717   .2702721    -0.78   0.437     .3769077    1.524704
+          Health_L1 |   1.135913   .0972618     1.49   0.137     .9604211    1.343473
+          AlcUse_L1 |   .7598998   .1294882    -1.61   0.107     .5441394    1.061213
+        FINScale_L1 |      .9986   .0707055    -0.02   0.984     .8692057    1.147257
+        DISScale_L1 |   1.008272   .0769707     0.11   0.914      .868156    1.171003
+           Crash_L1 |   1.271454   .2253135     1.36   0.175     .8983789    1.799457
+        ForceOut_L1 |   1.137143   .3934636     0.37   0.710     .5771525    2.240474
+           Risky_L1 |   1.132983   .1298116     1.09   0.276      .905101    1.418241
+             AGE_L1 |   .8323845   .0369572    -4.13   0.000     .7630119    .9080645
+                Sex |   1.708673   .2785891     3.29   0.001     1.241297    2.352028
+                    |
+               Race |
+             Black  |   1.601457   .2710831     2.78   0.005     1.149291    2.231519
+          Hispanic  |   .8440823   .3413029    -0.42   0.675     .3821231    1.864517
+             Other  |    .801125   .3160247    -0.56   0.574     .3697613    1.735717
+                    |
+              _cons |   38.38807   34.97901     4.00   0.000     6.435551    228.9849
+-------------------------------------------------------------------------------------
+Note: _cons estimates baseline odds.
+
+. 
+. 
+. ****
+. **EARNINGS
+. ****
+. 
+. *Arrest
+. reg log_Earnings ArrestEver_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(1, 720)         =      13.75
+                                                Prob > F          =     0.0002
+                                                R-squared         =     0.0173
+                                                Root MSE          =     6.5571
+
+                         (Std. err. adjusted for 721 clusters in ParticipantID)
+-------------------------------------------------------------------------------
+              |               Robust
+ log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ArrestEver_L1 |  -1.954524    .527041    -3.71   0.000    -2.989245   -.9198037
+        _cons |   3.270775    .257807    12.69   0.000     2.764632    3.776918
+-------------------------------------------------------------------------------
+
+. reg log_Earnings WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(1, 720)         =       4.12
+                                                Prob > F          =     0.0427
+                                                R-squared         =     0.0047
+                                                Root MSE          =     6.5991
+
+                        (Std. err. adjusted for 721 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ WorryJob_L1 |   -.221101   .1089162    -2.03   0.043    -.4349323   -.0072697
+       _cons |   3.606933   .4815308     7.49   0.000      2.66156    4.552305
+------------------------------------------------------------------------------
+
+. reg log_Earnings ArrestEver_L1 WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(Partici
+> pantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(2, 720)         =       8.47
+                                                Prob > F          =     0.0002
+                                                R-squared         =     0.0201
+                                                Root MSE          =     6.5516
+
+                         (Std. err. adjusted for 721 clusters in ParticipantID)
+-------------------------------------------------------------------------------
+              |               Robust
+ log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+ArrestEver_L1 |  -1.856861   .5353556    -3.47   0.001    -2.907906   -.8058169
+  WorryJob_L1 |  -.1710537   .1106514    -1.55   0.123    -.3882916    .0461843
+        _cons |   3.915557    .480075     8.16   0.000     2.973043    4.858071
+-------------------------------------------------------------------------------
+
+. reg log_Earnings ArrestEver_L1 WorryJob_L1 ///
+>         $l1control $l2control if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(20, 720)        =       2.94
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0635
+                                                Root MSE          =     6.4729
+
+                               (Std. err. adjusted for 721 clusters in ParticipantID)
+-------------------------------------------------------------------------------------
+                    |               Robust
+       log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+      ArrestEver_L1 |  -1.245521    .606942    -2.05   0.041    -2.437108    -.053933
+        WorryJob_L1 |  -.1523714   .1141487    -1.33   0.182    -.3764754    .0717326
+                    |
+     GraduatedHS_L1 |
+High school degree  |   .3129654   .8588909     0.36   0.716    -1.373264    1.999195
+               GED  |   .8072567   1.126959     0.72   0.474    -1.405262    3.019775
+                    |
+       EnrollNow_L1 |   .2791949   .5140355     0.54   0.587    -.7299927    1.288383
+    Relationship_L1 |  -.4966716   .6589763    -0.75   0.451    -1.790416    .7970731
+            Kids_L1 |  -1.695092   .6667769    -2.54   0.011    -3.004151   -.3860324
+UnemploymentComp_L1 |   .4929408   1.060159     0.46   0.642    -1.588431    2.574312
+          Health_L1 |   .1214536   .2556271     0.48   0.635    -.3804099    .6233171
+          AlcUse_L1 |   .5411147   .5016803     1.08   0.281    -.4438163    1.526046
+        FINScale_L1 |  -.1365238   .2083223    -0.66   0.512    -.5455154    .2724679
+        DISScale_L1 |  -.0849497   .2253586    -0.38   0.706    -.5273882    .3574889
+           Crash_L1 |  -1.191713    .507095    -2.35   0.019    -2.187275   -.1961517
+        ForceOut_L1 |   .0375506   .8270931     0.05   0.964    -1.586252    1.661353
+           Risky_L1 |  -.5560519   .3599773    -1.54   0.123    -1.262782    .1506787
+             AGE_L1 |   .0215356   .1185482     0.18   0.856    -.2112059    .2542771
+                Sex |   .6328734   .4798973     1.32   0.188    -.3092917    1.575039
+                    |
+               Race |
+             Black  |  -1.039601    .507669    -2.05   0.041     -2.03629    -.042913
+          Hispanic  |  -.0934545   1.064345    -0.09   0.930    -2.183045    1.996136
+             Other  |  -.3298771   1.154919    -0.29   0.775    -2.597288    1.937533
+                    |
+              _cons |   5.370923   2.481395     2.16   0.031     .4992876    10.24256
+-------------------------------------------------------------------------------------
+
+. 
+. *Jail
+. reg log_Earnings JailEver_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(1, 720)         =       1.48
+                                                Prob > F          =     0.2247
+                                                R-squared         =     0.0018
+                                                Root MSE          =     6.6088
+
+                        (Std. err. adjusted for 721 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ JailEver_L1 |  -.8703086   .7162726    -1.22   0.225    -2.276541    .5359238
+       _cons |   2.838885   .2424659    11.71   0.000     2.362861     3.31491
+------------------------------------------------------------------------------
+
+. reg log_Earnings WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(1, 720)         =       4.12
+                                                Prob > F          =     0.0427
+                                                R-squared         =     0.0047
+                                                Root MSE          =     6.5991
+
+                        (Std. err. adjusted for 721 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ WorryJob_L1 |   -.221101   .1089162    -2.03   0.043    -.4349323   -.0072697
+       _cons |   3.606933   .4815308     7.49   0.000      2.66156    4.552305
+------------------------------------------------------------------------------
+
+. reg log_Earnings JailEver_L1 WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(Participa
+> ntID)
+
+Linear regression                               Number of obs     =        864
+                                                F(2, 720)         =       2.67
+                                                Prob > F          =     0.0697
+                                                R-squared         =     0.0059
+                                                Root MSE          =     6.5988
+
+                        (Std. err. adjusted for 721 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ JailEver_L1 |  -.7353016   .7273454    -1.01   0.312    -2.163273    .6926695
+ WorryJob_L1 |  -.2096482   .1100147    -1.91   0.057    -.4256362    .0063398
+       _cons |   3.646236    .480854     7.58   0.000     2.702193     4.59028
+------------------------------------------------------------------------------
+
+. reg log_Earnings JailEver_L1 WorryJob_L1 ///
+>         $l1control $l2control if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(20, 720)        =       2.72
+                                                Prob > F          =     0.0001
+                                                R-squared         =     0.0585
+                                                Root MSE          =     6.4903
+
+                               (Std. err. adjusted for 721 clusters in ParticipantID)
+-------------------------------------------------------------------------------------
+                    |               Robust
+       log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+        JailEver_L1 |   .2614576   .7938279     0.33   0.742    -1.297036    1.819952
+        WorryJob_L1 |  -.1692353   .1141321    -1.48   0.139    -.3933069    .0548362
+                    |
+     GraduatedHS_L1 |
+High school degree  |   .7571061   .8714049     0.87   0.385    -.9536921    2.467904
+               GED  |   .8216103   1.143633     0.72   0.473    -1.423644    3.066864
+                    |
+       EnrollNow_L1 |    .434719   .5127749     0.85   0.397    -.5719936    1.441432
+    Relationship_L1 |  -.5414794   .6610281    -0.82   0.413    -1.839252    .7562935
+            Kids_L1 |  -1.769265   .6651829    -2.66   0.008    -3.075195   -.4633354
+UnemploymentComp_L1 |   .4878659   1.077716     0.45   0.651    -1.627975    2.603707
+          Health_L1 |   .1299677    .256161     0.51   0.612     -.372944    .6328795
+          AlcUse_L1 |   .4658064   .5041494     0.92   0.356    -.5239722    1.455585
+        FINScale_L1 |  -.1427791   .2080291    -0.69   0.493    -.5511952     .265637
+        DISScale_L1 |  -.1144615    .226607    -0.51   0.614     -.559351     .330428
+           Crash_L1 |  -1.207088   .5134388    -2.35   0.019    -2.215104   -.1990719
+        ForceOut_L1 |   .0670848   .8208667     0.08   0.935    -1.544493    1.678663
+           Risky_L1 |  -.6651199   .3661746    -1.82   0.070    -1.384017    .0537776
+             AGE_L1 |  -.0083954   .1189368    -0.07   0.944    -.2418997    .2251089
+                Sex |   .4154606   .4814179     0.86   0.388      -.52969    1.360611
+                    |
+               Race |
+             Black  |  -1.166979   .5080944    -2.30   0.022    -2.164502   -.1694552
+          Hispanic  |  -.0994003   1.057189    -0.09   0.925    -2.174941     1.97614
+             Other  |  -.5586381   1.163333    -0.48   0.631    -2.842568    1.725292
+                    |
+              _cons |   5.735816   2.503321     2.29   0.022     .8211348     10.6505
+-------------------------------------------------------------------------------------
+
+. 
+. *Probation
+. reg log_Earnings ProbationEver_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(1, 720)         =       0.91
+                                                Prob > F          =     0.3397
+                                                R-squared         =     0.0010
+                                                Root MSE          =     6.6113
+
+                            (Std. err. adjusted for 721 clusters in ParticipantID)
+----------------------------------------------------------------------------------
+                 |               Robust
+    log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+ProbationEver_L1 |  -.6085401   .6369587    -0.96   0.340    -1.859058    .6419782
+           _cons |   2.823682   .2487927    11.35   0.000     2.335236    3.312128
+----------------------------------------------------------------------------------
+
+. reg log_Earnings WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(1, 720)         =       4.12
+                                                Prob > F          =     0.0427
+                                                R-squared         =     0.0047
+                                                Root MSE          =     6.5991
+
+                        (Std. err. adjusted for 721 clusters in ParticipantID)
+------------------------------------------------------------------------------
+             |               Robust
+log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ WorryJob_L1 |   -.221101   .1089162    -2.03   0.043    -.4349323   -.0072697
+       _cons |   3.606933   .4815308     7.49   0.000      2.66156    4.552305
+------------------------------------------------------------------------------
+
+. reg log_Earnings ProbationEver_L1 WorryJob_L1 if TransitionEmploy == 1 & sample == 1, cluster(Part
+> icipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(2, 720)         =       2.53
+                                                Prob > F          =     0.0803
+                                                R-squared         =     0.0054
+                                                Root MSE          =     6.6006
+
+                            (Std. err. adjusted for 721 clusters in ParticipantID)
+----------------------------------------------------------------------------------
+                 |               Robust
+    log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+ProbationEver_L1 |  -.5028529     .65043    -0.77   0.440    -1.779819     .774113
+     WorryJob_L1 |  -.2140208   .1102464    -1.94   0.053    -.4304636     .002422
+           _cons |   3.648985   .4804793     7.59   0.000     2.705677    4.592293
+----------------------------------------------------------------------------------
+
+. reg log_Earnings ProbationEver_L1 WorryJob_L1 ///
+>         $l1control $l2control if TransitionEmploy == 1 & sample == 1, cluster(ParticipantID)
+
+Linear regression                               Number of obs     =        864
+                                                F(20, 720)        =       2.72
+                                                Prob > F          =     0.0001
+                                                R-squared         =     0.0584
+                                                Root MSE          =     6.4906
+
+                               (Std. err. adjusted for 721 clusters in ParticipantID)
+-------------------------------------------------------------------------------------
+                    |               Robust
+       log_Earnings | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+   ProbationEver_L1 |   .1255869   .7379715     0.17   0.865    -1.323246     1.57442
+        WorryJob_L1 |  -.1683257   .1140235    -1.48   0.140     -.392184    .0555326
+                    |
+     GraduatedHS_L1 |
+High school degree  |   .7397507   .8738887     0.85   0.398    -.9759238    2.455425
+               GED  |   .8127606    1.14415     0.71   0.478    -1.433508    3.059029
+                    |
+       EnrollNow_L1 |   .4279806   .5121676     0.84   0.404    -.5775399    1.433501
+    Relationship_L1 |  -.5287193    .662495    -0.80   0.425    -1.829372    .7719335
+            Kids_L1 |  -1.765394   .6652477    -2.65   0.008     -3.07145   -.4593365
+UnemploymentComp_L1 |   .4736131   1.080384     0.44   0.661    -1.647466    2.594692
+          Health_L1 |   .1259536   .2568028     0.49   0.624    -.3782182    .6301255
+          AlcUse_L1 |   .4657398   .5039305     0.92   0.356    -.5236089    1.455088
+        FINScale_L1 |  -.1446763   .2083791    -0.69   0.488    -.5537796     .264427
+        DISScale_L1 |  -.1065609   .2280126    -0.47   0.640    -.5542099    .3410882
+           Crash_L1 |   -1.20598   .5128521    -2.35   0.019    -2.212844   -.1991157
+        ForceOut_L1 |   .0696667   .8212409     0.08   0.932    -1.542646     1.68198
+           Risky_L1 |  -.6580619   .3698189    -1.78   0.076    -1.384114    .0679903
+             AGE_L1 |  -.0056561   .1190173    -0.05   0.962    -.2393185    .2280063
+                Sex |   .4222429   .4856657     0.87   0.385    -.5312471    1.375733
+                    |
+               Race |
+             Black  |  -1.161204   .5073645    -2.29   0.022    -2.157294    -.165113
+          Hispanic  |  -.0971888    1.05922    -0.09   0.927    -2.176717    1.982339
+             Other  |  -.5148867   1.156392    -0.45   0.656     -2.78519    1.755417
+                    |
+              _cons |   5.680623   2.508522     2.26   0.024     .7557307    10.60552
+-------------------------------------------------------------------------------------
+
+.         
+. log close
+      name:  <unnamed>
+       log:  E:\Holly\Job Search\LMParticipation_PublicFiles\Log Output\SECTION 5 - Main Models.log
+  log type:  text
+ closed on:  24 Jun 2025, 14:16:41
+----------------------------------------------------------------------------------------------------
