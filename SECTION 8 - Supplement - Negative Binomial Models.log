@@ -1,0 +1,117 @@
+--------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Holly\Job Search\LMParticipation_PublicFiles\Log Output\SECTION 8 - Supplement - Negative Binomial Models.log
+  log type:  text
+ opened on:  30 Jan 2026, 08:44:14
+
+. 
+. *NOTE: Code logged here represents attempted multilevel negative binomial distribution
+. *assessment. Most models did not converge and evidenced poor model fit when convergence
+. *was achieved. We do not advise additional interpretation of the code presented here.
+. 
+. 
+. /***************************************************
+> *SUPPLEMENTAL MODELS: NEGATIVE BINOMIAL DISTRIBUTION
+> ****************************************************
+> *       Models specified as multilevel with negative binomial distribution.
+> 
+> *Macros for Models
+> global state Employed_Total Searching_Total Discgd_Total
+> global contact ArrestEver_L1 JailEver_L1 ProbationEver_L1
+> global l1control i.GraduatedHS_L1 EnrollNow_L1 Relationship_L1 Kids_L1 ///
+>         UnemploymentComp_L1 Health_L1 AlcUse_L1 FINScale_L1 DISScale_L1 Crash_L1 ///
+>         ForceOut_L1 Risky_L1 AGE_L1
+> global l1controlpmc i.GraduatedHS_L1 EnrollNow_L1 Relationship_L1 Kids_L1 ///
+>         UnemploymentComp_L1 Health_L1c AlcUse_L1 FINScale_L1c DISScale_L1c Crash_L1 ///
+>         ForceOut_L1 Risky_L1c AGE_L1c
+> global l2control Sex i.Race
+>         
+> ****
+> **LABOR MARKET INSECURITY
+> ****
+> 
+> **Any Contact
+> menbreg WorryJob Contact_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg WorryJob Contact_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> **Arrest
+> menbreg WorryJob ArrestEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg WorryJob ArrestEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> **Jail
+> menbreg WorryJob JailEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg WorryJob JailEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> **Probation
+> menbreg WorryJob ProbationEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg WorryJob ProbationEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> 
+> 
+> ****
+> **TIME OUT OF THE LABOR FORCE
+> ****
+> 
+> **Any Contact
+> menbreg Discgd_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total Contact_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total WorryJob_L1 Contact_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Discgd_Total WorryJob_L1 Contact_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> 
+> **Arrest
+> menbreg Discgd_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total ArrestEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total WorryJob_L1 ArrestEver_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Discgd_Total WorryJob_L1 ArrestEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> **Jail
+> menbreg Discgd_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total JailEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total WorryJob_L1 JailEver_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Discgd_Total WorryJob_L1 JailEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> **Probation
+> menbreg Discgd_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total ProbationEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Discgd_Total WorryJob_L1 ProbationEver_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Discgd_Total WorryJob_L1 ProbationEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> 
+> 
+> ****
+> **TIME SEARCHING FOR WORK
+> ****
+> 
+> **Any Contact
+> menbreg Searching_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total Contact_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total WorryJob_L1 Contact_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Searching_Total WorryJob_L1 Contact_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> 
+> **Arrest
+> menbreg Searching_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total ArrestEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total WorryJob_L1 ArrestEver_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Searching_Total WorryJob_L1 ArrestEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> **Jail
+> menbreg Searching_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total JailEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total WorryJob_L1 JailEver_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Searching_Total WorryJob_L1 JailEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate
+> 
+> **Probation
+> menbreg Searching_Total WorryJob_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total ProbationEver_L1 if sample == 1 || ParticipantID: // bivariate
+> menbreg Searching_Total WorryJob_L1 ProbationEver_L1 if sample == 1 || ParticipantID: // multivariate
+> menbreg Searching_Total WorryJob_L1 ProbationEver_L1 $l1controlpmc $l2control  if sample == 1 || ParticipantID: // multivariate 
+> */
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Holly\Job Search\LMParticipation_PublicFiles\Log Output\SECTION 8 - Supplement - Negative Binomial Models.log
+  log type:  text
+ closed on:  30 Jan 2026, 08:44:14
+--------------------------------------------------------------------------------------------------------------------------------------------
